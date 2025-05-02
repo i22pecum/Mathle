@@ -77,3 +77,5 @@ En este tercer sprint tenemos el siguiente Product Backlog:
 | **Diagramas de Presentación** | Diseñar la disposición visual de los elementos en las interfaces del sistema, facilitando una presentación clara y ordenada de la información. | 5 | Alta |
 
 ### 4.2. Burndown Chart
+
+![Burndown Chart del sprint 3](Burndown_chart_Sprint3.svg)
