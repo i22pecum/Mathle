@@ -11,6 +11,11 @@ En este apartado se mostraran todas las tareas que hay que desempeñar para llev
 | **Modelar Casos de Uso** | Detallar con mayor precisión los pasos específicos y secuenciales dentro de cada caso de uso. | 5 | Alta |
 | **Diagrama Casos de Uso** | Diseñar un diagrama que muestre las relaciones entre los actores y los casos de uso, proporcionando una representación gráfica de los escenarios del sistema. | 2 | Muy Baja |
 | **Diagramas de Actividad** | Crear diagramas que representen el flujo de trabajo y las acciones dentro de un proceso, mostrando cómo se desarrollan las actividades y cómo se interrelacionan. | 6 | Alta |
+|||||
+|||||
+|||||
+|||||
+|||||
 
 
 
