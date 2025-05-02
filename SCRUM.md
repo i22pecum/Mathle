@@ -11,11 +11,12 @@ En este apartado se mostraran todas las tareas que hay que desempeñar para llev
 | **Modelar Casos de Uso** | Detallar con mayor precisión los pasos específicos y secuenciales dentro de cada caso de uso. | 5 | Alta |
 | **Diagrama Casos de Uso** | Diseñar un diagrama que muestre las relaciones entre los actores y los casos de uso, proporcionando una representación gráfica de los escenarios del sistema. | 2 | Muy Baja |
 | **Diagramas de Actividad** | Crear diagramas que representen el flujo de trabajo y las acciones dentro de un proceso, mostrando cómo se desarrollan las actividades y cómo se interrelacionan. | 6 | Alta |
-|||||
-|||||
-|||||
-|||||
-|||||
+| **Diagrama de Contenidos** | Elaborar una estructura jerárquica que organice los contenidos del sistema, permitiendo visualizar qué información estará disponible y cómo se agrupará. | 3 | Media |
+| **Diagrama de Usuarios** | Representar los distintos tipos de usuarios del sistema y sus características principales, facilitando el diseño centrado en el usuario. | 3 | Alta |
+| **Diagrama de Navegación** | Diseñar la estructura de navegación del sistema, mostrando cómo se conectan entre sí las distintas vistas o páginas del sistema. | 4 | Alta |
+| **Diagrama de Estructura de Proceso** | Mostrar la organización general de los procesos del sistema, identificando módulos o etapas clave en la ejecución del mismo. | 2 | Baja |
+| **Diagramas de Flujo de Proceso** | Representar gráficamente las etapas de un proceso específico, detallando las decisiones, acciones y secuencia lógica de ejecución. | 1 | Muy Baja |
+| **Diagramas de Presentación** | Diseñar la disposición visual de los elementos en las interfaces del sistema, facilitando una presentación clara y ordenada de la información. | 5 | Alta |
 
 
 
@@ -57,3 +58,22 @@ En este segundo sprint tenemos el siguiente Product Backlog:
 ### 3.2. Burndown Chart
 
 ![Burndown Chart del sprint 2](Burndown_chart_Sprint2.svg)
+
+## 4. Sprint 3  
+
+En este apartado se va a mostrar toda la información de los artefactos empleados en el primer sprint del trabajo (01/04/2025 - 28/04/2025).  
+
+### 4.1. Sprint Backlog  
+
+En este tercer sprint tenemos el siguiente Product Backlog: 
+
+| Tarea                 | Descripción | Puntos | Prioridad |
+|----------------------|------------|--------|-----------|
+| **Diagrama de Contenidos** | Elaborar una estructura jerárquica que organice los contenidos del sistema, permitiendo visualizar qué información estará disponible y cómo se agrupará. | 3 | Media |
+| **Diagrama de Usuarios** | Representar los distintos tipos de usuarios del sistema y sus características principales, facilitando el diseño centrado en el usuario. | 3 | Alta |
+| **Diagrama de Navegación** | Diseñar la estructura de navegación del sistema, mostrando cómo se conectan entre sí las distintas vistas o páginas del sistema. | 4 | Alta |
+| **Diagrama de Estructura de Proceso** | Mostrar la organización general de los procesos del sistema, identificando módulos o etapas clave en la ejecución del mismo. | 2 | Baja |
+| **Diagramas de Flujo de Proceso** | Representar gráficamente las etapas de un proceso específico, detallando las decisiones, acciones y secuencia lógica de ejecución. | 1 | Muy Baja |
+| **Diagramas de Presentación** | Diseñar la disposición visual de los elementos en las interfaces del sistema, facilitando una presentación clara y ordenada de la información. | 5 | Alta |
+
+### 4.2. Burndown Chart
