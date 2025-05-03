@@ -19,8 +19,6 @@ En este apartado se mostraran todas las tareas que hay que desempeñar para llev
 | **Diagramas de Presentación** | Diseñar la disposición visual de los elementos en las interfaces del sistema, facilitando una presentación clara y ordenada de la información. | 5 | Alta |
 
 
-
-
 ## 2. Sprint 1  
 
 En este apartado se va a mostrar toda la información de los artefactos empleados en el segundo sprint del trabajo (25/02/2025 - 10/03/2025).  
@@ -37,6 +35,7 @@ En este primer sprint tenemos el siguiente Product Backlog:
 ### 3.2. Burndown Chart
 
 ![Burndown Chart del sprint 1](Burndown_chart_Sprint1.svg)
+
 
 ## 3. Sprint 2  
 
@@ -59,9 +58,10 @@ En este segundo sprint tenemos el siguiente Product Backlog:
 
 ![Burndown Chart del sprint 2](Burndown_chart_Sprint2.svg)
 
+
 ## 4. Sprint 3  
 
-En este apartado se va a mostrar toda la información de los artefactos empleados en el primer sprint del trabajo (01/04/2025 - 28/04/2025).  
+En este apartado se va a mostrar toda la información de los artefactos empleados en el primer sprint del trabajo (01/04/2025 - 28/04/2025).
 
 ### 4.1. Sprint Backlog  
 
