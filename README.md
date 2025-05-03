@@ -9,7 +9,7 @@ Para instalar la base de datos y todos tener un mismo usuario dentro de esta par
 sudo ./instalar_bbdd.sh
 ```
 
-Para cargar los datos dentro de la base de datos habra que hacer, teniendo en el directorio actual el fichero backup.sql:
+Para cargar los datos dentro de la base de datos habra que tener en el directorio actual el fichero backup.sql y hacer:
 ```bash
 sudo ./importar_bbdd.sh
 ```
