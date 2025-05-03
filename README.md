@@ -9,12 +9,13 @@ Para instalar la base de datos y todos tener un mismo usuario dentro de esta par
 sudo ./instalar_bbdd.sh
 ```
 
-Para cargar los datos dentro de la base de datos habra que hacer:
+Para cargar los datos dentro de la base de datos habra que hacer, teniendo en el directorio actual el fichero backup.sql:
 ```bash
 sudo ./importar_bbdd.sh
 ```
 
-Para exportar los datos de la base de datos para que otro compañero los pueda utilizar mientras el desarrolle hacer:
+Para exportar los datos de la base de datos habra que hacer:
 ```bash
 sudo ./exportar_bbdd.sh
 ```
+Este comando generara un archivo backup.sql el cual habra que subir a GitHub para tener los datos actualizados
