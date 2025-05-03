@@ -18,4 +18,4 @@ Para exportar los datos de la base de datos habra que hacer:
 ```bash
 sudo ./exportar_bbdd.sh
 ```
-Este comando generara un archivo backup.sql el cual habra que subir a GitHub para tener los datos actualizados
+Este comando generara un archivo backup.sql el cual habra que subir a GitHub posteriormente
