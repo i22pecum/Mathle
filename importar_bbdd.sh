@@ -13,3 +13,4 @@ echo "📦 Cargando backup de la base de datos '$DB_NAME'"
 mysql -u $DB_USER -p$DB_PWD $DB_NAME < $BACKUP_FILE
 
 
+                                    
