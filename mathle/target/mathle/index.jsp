@@ -1,4 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String color = (String) session.getAttribute("color");
+    String fondo = "white";
+
+    if (color != null) {
+        switch (color) {
+            case "oscuro": fondo = "#333"; break;
+            case "azul": fondo = "#cce6ff"; break;
+            case "verde": fondo = "#ccffcc"; break;
+            default: fondo = "white"; break;
+        }
+    }
+%>
 <html lang="es">
     <head>
         <meta charset="UTF-8">

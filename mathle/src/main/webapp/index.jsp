@@ -1,4 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String color = (String) session.getAttribute("color");
+    String fondo = "white";
+
+    if (color != null) {
+        switch (color) {
+            case "oscuro": fondo = "#333"; break;
+            case "azul": fondo = "#cce6ff"; break;
+            case "verde": fondo = "#ccffcc"; break;
+            default: fondo = "white"; break;
+        }
+    }
+%>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -16,7 +29,7 @@
             <form action="/mathle/mvc/view/inicioSesion.jsp" method="get">
                 <button type="submit" class="button">Iniciar Sesión</button>
             </form>
-            <form action="" method="get">
+            <form action="/mathle/mvc/view/seleccionarModoDeJuego.jsp" method="get">
                 <button type="submit" class="button">Jugar Partida</button>
             </form>
             <form action="/mathle/mvc/view/visualizarMensaje.jsp" method="get">
@@ -25,7 +38,7 @@
             <form action="/mathle/mvc/view/tutorial.jsp" method="get">
                 <button type="submit" class="button">Ver Tutorial</button>
             </form>
-            <form action="" method="get">
+            <form action="/mathle/mvc/view/vistaRanking.jsp" method="get">
                 <button type="submit" class="button">Ver Ranking</button>
             </form>
             <form action="/mathle/mvc/view/personalizarWeb.jsp" method="get">
