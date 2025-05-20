@@ -30,10 +30,16 @@ public class RegistrarServlet extends HttpServlet {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         if (usuarioDAO.existeCorreo(correo)) {
-            // El email ya está registrado
+            // El email ya esta registrado
             request.setAttribute("mensaje", "El correo electrónico ya está en uso.");
             request.getRequestDispatcher("/mathle/mvc/view/registro.jsp").forward(request, response);
-        } else {
+        }
+        else if (usuarioDAO.existeNombre(nombre)) {
+            // El nombre ya esta registrado
+            request.setAttribute("mensaje", "El nombre de usuario ya está en uso.");
+            request.getRequestDispatcher("/mathle/mvc/view/registro.jsp").forward(request, response);
+        }
+        else {
             boolean exito = usuarioDAO.insertarUsuario(correo, nombre, contrasena);
             if (exito) {
                 // Registro exitoso, redirige a la siguiente vista

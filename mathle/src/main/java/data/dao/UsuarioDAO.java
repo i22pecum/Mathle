@@ -11,11 +11,34 @@ public class UsuarioDAO {
     private final String user = "root";
     private final String password = "1234";
 
+
+    //Fuerza a cargar el driver de MariaDB
+    static {
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean existeCorreo(String correo) {
         String query = "SELECT correo FROM usuario WHERE correo=?";
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, correo);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true; // prevenir registros si hay error
+        }
+    }
+
+    public boolean existeNombre(String nombre) {
+        String query = "SELECT nombre FROM usuario WHERE nombre=?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nombre);
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         } catch (Exception e) {
@@ -66,8 +89,9 @@ public class UsuarioDAO {
     }
 
     //Obtener nombre de usuario por correo
-    public String obtenerNombre(String correo) {
-        String query = "SELECT nombre FROM usuario WHERE correo=?";
+    public Usuario obtenerDatosUsuario(String correo) {
+        String query = "SELECT nombre, puntuacion, tema FROM usuario WHERE correo=?";
+        Usuario usuario = new Usuario();
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -75,7 +99,11 @@ public class UsuarioDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getString("nombre");
+                usuario.setCorreo(correo);
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setPuntuacion(rs.getInt("puntuacion"));
+                usuario.setTema(rs.getString("tema"));
+                return usuario;
             } else {
                 return null;
             }

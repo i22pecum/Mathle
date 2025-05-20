@@ -6,7 +6,7 @@
 </head>
 <body>
     <h2>Formulario de Registro</h2>
-    <form action="registro" method="post">
+    <form action="/mathle/registro" method="post">
         <!-- Nombre de usuario -->
         <label for="nombre">Nombre de usuario:</label><br>
         <input type="text" id="nombre" name="nombre" required><br><br>
@@ -19,9 +19,12 @@
 
         <!-- Contraseña -->
         <label for="contrasena">Contrasena:</label><br>
-        <input type="contrasena" id="contrasena" name="contrasena" required><br><br>
+        <input type="password" id="contrasena" name="contrasena" required><br><br>
 
         <input type="submit" value="Registrarse">
     </form>
+
+    <button onclick="history.back()">Atrás</button>
+    
 </body>
 </html>

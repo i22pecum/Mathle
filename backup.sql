@@ -30,8 +30,8 @@ CREATE TABLE `mensaje` (
   `mensaje` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `autor` (`autor`),
-  CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `usuario` (`correo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `usuario` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,10 @@ CREATE TABLE `mensaje` (
 
 LOCK TABLES `mensaje` WRITE;
 /*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
+INSERT INTO `mensaje` VALUES
+(2,'jose','2025-05-20 13:30:38','me siento orgulloso de inaugurar este foro'),
+(3,'SrGuille','2025-05-20 13:31:34','soy el mejor jugador de MATHLE'),
+(4,'jose','2025-05-20 13:44:45','@SrGuille el mejor soy jugador soy yo');
 /*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +115,8 @@ CREATE TABLE `usuario` (
   `contrasena` varchar(255) NOT NULL,
   `puntuacion` float DEFAULT 0,
   `tema` varchar(20) DEFAULT 'claro',
-  PRIMARY KEY (`correo`)
+  PRIMARY KEY (`correo`),
+  UNIQUE KEY `nombre` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,6 +126,10 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES
+('guillermito@gmail.com','SrGuille','$2a$10$djQZHGqS8nYxhqg6eM4BROkPpz.SmXrqpVpir2Q78ZxjkeDQUiCbG',0,'claro'),
+('i22pecum@uco.es','Manuel','$2a$10$bhD0caxKBUfiThNgqDeAMuYp5Pqkj2MZfhgcpBSgzxUxRpoouOi.W',0,'claro'),
+('jose@gmail.com','jose','$2a$10$FXlLqKiDr4nSXt6SJgxDueyhBKimpb7wMTDW/CFBBeZMV4LbBkBuG',0,'claro');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -133,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20 10:53:39
+-- Dump completed on 2025-05-20 13:46:29

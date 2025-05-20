@@ -1,0 +1,15 @@
+/home/usuario/IW/mathle/src/main/java/servlets/RegistrarServlet.java
+/home/usuario/IW/mathle/src/main/java/servlets/LogoutServlet.java
+/home/usuario/IW/mathle/src/main/java/data/dto/Problema.java
+/home/usuario/IW/mathle/src/main/java/servlets/RankingServlet.java
+/home/usuario/IW/mathle/src/main/java/data/common/OperacionGenerator.java
+/home/usuario/IW/mathle/src/main/java/data/dto/Usuario.java
+/home/usuario/IW/mathle/src/main/java/servlets/SeleccionarDificultadServlet.java
+/home/usuario/IW/mathle/src/main/java/data/dao/MensajeDAO.java
+/home/usuario/IW/mathle/src/main/java/data/dao/UsuarioDAO.java
+/home/usuario/IW/mathle/src/main/java/servlets/MensajeServlet.java
+/home/usuario/IW/mathle/src/main/java/data/dao/ProblemaDAO.java
+/home/usuario/IW/mathle/src/main/java/data/dto/Mensaje.java
+/home/usuario/IW/mathle/src/main/java/servlets/LoginServlet.java
+/home/usuario/IW/mathle/src/main/java/servlets/ModoJuegoServlet.java
+/home/usuario/IW/mathle/src/main/java/servlets/PersonalizarServlet.java

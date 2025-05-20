@@ -1,6 +1,6 @@
 CREATE TABLE usuario (
     correo VARCHAR(100) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
     puntuacion FLOAT DEFAULT 0,
     tema VARCHAR(20) DEFAULT 'claro'
@@ -11,7 +11,7 @@ CREATE TABLE mensaje (
     autor VARCHAR(100) NOT NULL,
     fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     mensaje TEXT NOT NULL,
-    FOREIGN KEY (autor) REFERENCES usuario(correo)
+    FOREIGN KEY (autor) REFERENCES usuario(nombre)
 );
 
 CREATE TABLE problema (

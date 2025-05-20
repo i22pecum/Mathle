@@ -1,4 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*, data.dto.Mensaje" %>
+<%
+    if(session.getAttribute("usuario") == null){
+        response.sendRedirect("/mathle");
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,36 +13,59 @@
 </head>
 <body>
 
+<div>
+    <h2>MENSAJES BLOG</h2>
+</div>
+
+<br>
+
+<!-- Mostrar mensaje de error si existe -->
+<%
+    String error = (String) request.getAttribute("error");
+    if (error != null) {
+%>
+    <p><%= error %></p>
+<%
+    }
+%>
+
+<!-- Botón para publicar nuevo mensaje -->
+<form action="/mathle/mvc/view/publicarMensaje.jsp" method="get">
+    <input type="submit" value="Publicar mensaje">
+</form>
+
+<!-- Listado de mensajes -->
+<div>
+<%
+    List<Mensaje> mensajes = (List<Mensaje>) request.getAttribute("mensajes");
+    if (mensajes != null && !mensajes.isEmpty()) {
+        for (Mensaje m : mensajes) {
+%>
     <div>
-        <span>☰</span>
-        <strong>MENSAJES BLOG</strong>
-        <span style="float: right;">mathle</span>
+        <p>
+            <strong>Autor:</strong> <%= m.getAutor() %><br>
+            <strong>Mensaje:</strong> <%= m.getMensaje() %><br>
+            <span><%= m.getFecha() %></span>
+        </p>
     </div>
+<%
+        }
+    } else {
+%>
+    <p>No hay mensajes todavía.</p>
+<%
+    }
+%>
+</div>
 
-    <br>
+<br>
 
-    <div>
-        <form method="post">
-            <input type="submit" value="+" title="Agregar mensaje">
-        </form>
+<!-- Botón para salir -->
+<form action="<%= request.getContextPath() %>/index.jsp" method="get">
+    <input type="submit" value="Salir">
+</form>
 
-        <div>
-            <p><strong>Autor:</strong> Usuario1<br>
-            <strong>Mensaje:</strong> Hola a todos. <span>2025-05-13</span></p>
 
-            <p><strong>Autor:</strong> Usuario2<br>
-            <strong>Mensaje:</strong> Bienvenidos al blog. <span>2025-05-12</span></p>
-
-            <p><strong>Autor:</strong> Usuario3<br>
-            <strong>Mensaje:</strong> ¡Qué buen día! <span>2025-05-11</span></p>
-        </div>
-    </div>
-
-    <br>
-
-    <form action="logout.jsp" method="get">
-        <input type="submit" value="Salir">
-    </form>
 
 </body>
 </html>

@@ -5,8 +5,9 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import data.dao.UsuarioDAO;
+import data.dto.Usuario;
 
-@WebServlet("/LoginServlet")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -14,12 +15,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
+        Usuario usuario = new Usuario();
 
         if (usuarioDAO.verificarCredenciales(correo, contrasena)) {
-            String nombre = usuarioDAO.obtenerNombre(correo);
+            usuario = usuarioDAO.obtenerDatosUsuario(correo);
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", nombre);
-            session.setAttribute("correo", correo);
+            session.setAttribute("usuario", usuario);
             response.sendRedirect("/mathle"); // Redirige al juego si es exitoso
         } else {
             request.setAttribute("error", "Correo o contraseña incorrectos.");

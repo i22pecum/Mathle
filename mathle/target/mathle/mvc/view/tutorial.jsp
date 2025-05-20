@@ -136,7 +136,11 @@
     <p>Si estás registrado, tu partida se mantiene incluso si refrescas la página.</p>
 
     <h2>¡Empieza a jugar ahora!</h2>
-    <a href="juego.jsp" class="start-button">¡Jugar ahora!</a>
+    <a href="/mathle/mvc/view/seleccionarModoDeJuego.jsp" class="start-button">¡Jugar ahora!</a>
+    <!-- Botón para volver atrás -->
+    <form>
+        <input type="button" value="⬅ Volver" onclick="history.back()" />
+    </form>
 </div>
 
 </body>
