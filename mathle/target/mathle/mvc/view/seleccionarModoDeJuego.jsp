@@ -3,14 +3,26 @@
 <html>
 <head>
     <title>Seleccionar Modo de Juego</title>
+    <%
+        String tema = (String) session.getAttribute("color");
+        if (tema == null) {
+            tema = "claro";
+        }
+    %>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
+
     <script>
         function mostrarDesplegable() {
             const modo = document.querySelector('input[name="modo"]:checked')?.value;
             const contenedor = document.getElementById("opcionesAnteriores");
+            const radios = document.getElementsByName("modoAnterior");
+
             if (modo === "anteriores") {
                 contenedor.style.display = "block";
+                Array.from(radios).forEach(r => r.required = true);
             } else {
                 contenedor.style.display = "none";
+                Array.from(radios).forEach(r => r.required = false);
             }
         }
 
@@ -27,14 +39,18 @@
             }
         }
 
-        window.onload = generarFechas;
+        window.onload = function () {
+            generarFechas();
+            mostrarDesplegable(); // inicializar visibilidad al cargar
+        };
     </script>
 </head>
 <body>
+    <div class="container">
     <h2>Selecciona un modo de juego</h2>
 
     <form action="/mathle/modoJuego" method="post">
-        <input type="radio" id="nino" name="modo" value="nino" required onclick="mostrarDesplegable()">
+        <input type="radio" id="nino" name="modo" value="ninos" required onclick="mostrarDesplegable()">
         <label for="nino">Niño</label><br>
 
         <input type="radio" id="desafio" name="modo" value="normal" onclick="mostrarDesplegable()">
@@ -46,7 +62,7 @@
         <!-- Opciones adicionales para "anteriores" -->
         <div id="opcionesAnteriores" style="display:none;">
             <label>Selecciona el modo del desafío anterior:</label><br>
-            <input type="radio" id="anterioresNino" name="modoAnterior" value="nino" required>
+            <input type="radio" id="anterioresNino" name="modoAnterior" value="ninos">
             <label for="anterioresNino">Niño</label><br>
             <input type="radio" id="anterioresNormal" name="modoAnterior" value="normal">
             <label for="anterioresNormal">Normal</label><br><br>
@@ -59,5 +75,6 @@
     </form>
 
     <button onclick="history.back()">Atrás</button>
+    <div>
 </body>
 </html>

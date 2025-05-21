@@ -22,7 +22,7 @@ public class RegistrarServlet extends HttpServlet {
             correo == null || correo.trim().isEmpty() ||
             contrasena == null || contrasena.trim().isEmpty()) {
             request.setAttribute("mensaje", "Todos los campos son obligatorios.");
-            request.getRequestDispatcher("/mathle/mvc/view/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("mvc/view/registro.jsp").forward(request, response);
             return;
         }
 
@@ -32,22 +32,22 @@ public class RegistrarServlet extends HttpServlet {
         if (usuarioDAO.existeCorreo(correo)) {
             // El email ya esta registrado
             request.setAttribute("mensaje", "El correo electrónico ya está en uso.");
-            request.getRequestDispatcher("/mathle/mvc/view/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("mvc/view/registro.jsp").forward(request, response);
         }
         else if (usuarioDAO.existeNombre(nombre)) {
             // El nombre ya esta registrado
             request.setAttribute("mensaje", "El nombre de usuario ya está en uso.");
-            request.getRequestDispatcher("/mathle/mvc/view/registro.jsp").forward(request, response);
+            request.getRequestDispatcher("mvc/view/registro.jsp").forward(request, response);
         }
         else {
             boolean exito = usuarioDAO.insertarUsuario(correo, nombre, contrasena);
             if (exito) {
                 // Registro exitoso, redirige a la siguiente vista
-                response.sendRedirect("/mathle/mvc/view/inicioSesion.jsp");
+                response.sendRedirect("mvc/view/inicioSesion.jsp");
             } else {
                 // Error al insertar en BD
                 request.setAttribute("mensaje", "Hubo un error al registrar el usuario.");
-                request.getRequestDispatcher("/mathle/mvc/view/registro.jsp").forward(request, response);
+                request.getRequestDispatcher("mvc/view/registro.jsp").forward(request, response);
             }
         }
     }

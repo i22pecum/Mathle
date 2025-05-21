@@ -1,30 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Registro de Usuario</title>
+  <meta charset="UTF-8">
+  <title>Registro de Usuario</title>
+  <%
+    String tema = (String) session.getAttribute("color");
+    if (tema == null) {
+        tema = "claro";
+    }
+  %>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
+
+  <script src="${pageContext.request.contextPath}/static/js/registro.js" defer></script>
 </head>
+
 <body>
-    <h2>Formulario de Registro</h2>
-    <form action="/mathle/registro" method="post">
-        <!-- Nombre de usuario -->
-        <label for="nombre">Nombre de usuario:</label><br>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+  <div class="container">
+  <h2>Formulario de Registro</h2>
 
-        <!-- Correo electronico -->
-        <label for="correo">Correo electrónico:</label><br>
-        <input type="correo" id="correo" name="correo" required
-               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-               title="Introduce un correo electrónico válido"><br><br>
+  <!-- Mensaje de error del servidor o del JS -->
+  <p id="mensaje" style="color: red;">
+    <%= request.getAttribute("mensaje") != null ? request.getAttribute("mensaje") : "" %>
+  </p>
 
-        <!-- Contraseña -->
-        <label for="contrasena">Contrasena:</label><br>
-        <input type="password" id="contrasena" name="contrasena" required><br><br>
+  <form action="/mathle/registro" method="post">
+    <label for="nombre">Nombre de usuario:</label><br>
+    <input type="text" id="nombre" name="nombre" required><br><br>
 
-        <input type="submit" value="Registrarse">
-    </form>
+    <label for="correo">Correo electrónico:</label><br>
+    <input type="email" id="correo" name="correo" required><br><br>
 
-    <button onclick="history.back()">Atrás</button>
-    
+    <label for="contrasena">Contraseña:</label><br>
+    <input type="password" id="contrasena" name="contrasena" required><br><br>
+
+    <input type="submit" value="Registrarse">
+  </form>
+
+  <button onclick="history.back()">Atrás</button>
+  <div>
 </body>
 </html>

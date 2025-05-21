@@ -71,20 +71,18 @@ public class UsuarioDAO {
     public boolean verificarCredenciales(String correo, String contrasena) {
         String query = "SELECT contrasena FROM usuario WHERE correo=?";
         try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
+            PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, correo);
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
-                String contrasenaHash = rs.getString("contrasena");
-                return BCrypt.checkpw(contrasena, contrasenaHash);
+                String hashContrasena = rs.getString("contrasena");
+                return BCrypt.checkpw(contrasena, hashContrasena);
             } else {
-                return false;
+                return false; // Usuario no encontrado
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return false; // En caso de error, no autenticar
         }
     }
 
@@ -113,9 +111,9 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Usuario> obtenerRanking() {
+    public List<Usuario> obtenerRankingGlobal() {
         List<Usuario> ranking = new ArrayList<>();
-        String sql = "SELECT nombre, puntuacion FROM usuarios ORDER BY puntuacion DESC";
+        String sql = "SELECT nombre, puntuacion FROM usuario ORDER BY puntuacion DESC";
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -128,11 +126,13 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Considera usar logging en producción
+            e.printStackTrace();
         }
 
         return ranking;
     }
+
+
         
 }
 

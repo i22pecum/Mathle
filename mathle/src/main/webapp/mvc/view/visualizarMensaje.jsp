@@ -8,11 +8,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <title>Mensajes Blog</title>
+
+    <%
+    String tema = (String) session.getAttribute("color");
+    if (tema == null) {
+        tema = "claro";
+    }
+  %>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
 </head>
 <body>
-
+<div class="container">
 <div>
     <h2>MENSAJES BLOG</h2>
 </div>
@@ -30,10 +39,12 @@
 %>
 
 <!-- Botón para publicar nuevo mensaje -->
-<form action="/mathle/mvc/view/publicarMensaje.jsp" method="get">
-    <input type="submit" value="Publicar mensaje">
-</form>
-
+<div>
+    <form action="/mathle/mvc/view/publicarMensaje.jsp" method="get">
+        <input type="submit" value="Publicar mensaje">
+    </form>
+    <br><br>
+<div>
 <!-- Listado de mensajes -->
 <div>
 <%
@@ -41,13 +52,18 @@
     if (mensajes != null && !mensajes.isEmpty()) {
         for (Mensaje m : mensajes) {
 %>
-    <div>
+    
+    <div class="mensaje-card">
         <p>
             <strong>Autor:</strong> <%= m.getAutor() %><br>
             <strong>Mensaje:</strong> <%= m.getMensaje() %><br>
-            <span><%= m.getFecha() %></span>
+            <div class="fecha-mensaje">
+                <span><%= m.getFecha() %></span>
+            </div>
         </p>
+
     </div>
+    
 <%
         }
     } else {
@@ -66,6 +82,6 @@
 </form>
 
 
-
+<div>
 </body>
 </html>

@@ -17,10 +17,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu Principal</title>
+
+        <%
+            String tema = (String) session.getAttribute("color");
+            if (tema == null) {
+                tema = "claro";
+            }
+        %>
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
     </head>
     <body>
+        <div class="container">
 
-        <h1>Menu Principal</h1>
+        <h1>Menú Principal</h1>
 
         <div class="button-container">
 
@@ -42,7 +51,7 @@
             <form action="/mathle/mvc/view/tutorial.jsp" method="get">
                 <button type="submit" class="button">Ver Tutorial</button>
             </form>
-            <form action="/mathle/RankingServlet" method="get">
+            <form action="/mathle/RankingGlobalServlet" method="get">
                 <button type="submit" class="button">Ver Ranking</button>
             </form>
             <form action="/mathle/mvc/view/personalizarWeb.jsp" method="get">
@@ -63,6 +72,6 @@
         <%
         }
         %>
-            
+    <div>  
     </body>
 </html>

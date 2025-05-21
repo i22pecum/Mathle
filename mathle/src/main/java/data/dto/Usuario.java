@@ -3,10 +3,10 @@ package data.dto;
 public class Usuario {
     private String correo;
     private String nombre;
-    private int puntuacion;
+    private float puntuacion;
     private String tema;
     
-    public Usuario(String nombre, int puntuacion) {
+    public Usuario(String nombre, float puntuacion) {
         this.nombre = nombre;
         this.puntuacion = puntuacion;
     }
@@ -29,11 +29,11 @@ public class Usuario {
         this.nombre = nombre;
     }
     
-    public int getPuntuacion() {
+    public float getPuntuacion() {
         return puntuacion;
     }
 
-    public void setPuntuacion(int puntuacion) {
+    public void setPuntuacion(float puntuacion) {
         this.puntuacion = puntuacion;
     }
 

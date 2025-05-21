@@ -49,4 +49,27 @@ public class ProblemaDAO {
             e.printStackTrace();
         }
     }
+
+    public Integer obtenerIdProblemaPorCriterios(String modoJuego, int dificultad, Date fecha) {
+        String sql = "SELECT id FROM problema WHERE modoJuego = ? AND dificultad = ? AND fecha = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, modoJuego);
+            stmt.setInt(2, dificultad);
+            stmt.setDate(3, fecha);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // No encontrado
+    }
+
 }

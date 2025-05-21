@@ -41,9 +41,10 @@ CREATE TABLE `mensaje` (
 LOCK TABLES `mensaje` WRITE;
 /*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
 INSERT INTO `mensaje` VALUES
-(2,'jose','2025-05-20 13:30:38','me siento orgulloso de inaugurar este foro'),
-(3,'SrGuille','2025-05-20 13:31:34','soy el mejor jugador de MATHLE'),
-(4,'jose','2025-05-20 13:44:45','@SrGuille el mejor soy jugador soy yo');
+(1,'jose','2025-05-21 12:28:17','Buen juego\r\n'),
+(2,'SrGuille','2025-05-21 12:31:04','Llevo desde los 0,5 años jugando a este juego, y la verdad que es la mejor version que he visto del mismo, un saludo!'),
+(3,'matas','2025-05-21 12:38:42','expreso mackiato, mackiato mackiato porfavoree, porfavoreee'),
+(4,'SrGuille','2025-05-21 13:10:49','1234234');
 /*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,13 +57,13 @@ DROP TABLE IF EXISTS `partida`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `partida` (
   `idProblema` int(11) NOT NULL,
-  `correoUsuario` varchar(100) NOT NULL,
+  `nombreUsuario` varchar(100) NOT NULL,
   `duracion` int(11) NOT NULL,
   `intentos` int(11) NOT NULL,
   `puntuacion` float NOT NULL,
-  PRIMARY KEY (`idProblema`,`correoUsuario`),
-  KEY `correoUsuario` (`correoUsuario`),
-  CONSTRAINT `partida_ibfk_1` FOREIGN KEY (`correoUsuario`) REFERENCES `usuario` (`correo`),
+  PRIMARY KEY (`idProblema`,`nombreUsuario`),
+  KEY `nombreUsuario` (`nombreUsuario`),
+  CONSTRAINT `partida_ibfk_1` FOREIGN KEY (`nombreUsuario`) REFERENCES `usuario` (`nombre`),
   CONSTRAINT `partida_ibfk_2` FOREIGN KEY (`idProblema`) REFERENCES `problema` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -73,6 +74,8 @@ CREATE TABLE `partida` (
 
 LOCK TABLES `partida` WRITE;
 /*!40000 ALTER TABLE `partida` DISABLE KEYS */;
+INSERT INTO `partida` VALUES
+(4,'Manuel',4,1,10);
 /*!40000 ALTER TABLE `partida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,11 +89,11 @@ DROP TABLE IF EXISTS `problema`;
 CREATE TABLE `problema` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `operacion` varchar(15) NOT NULL,
-  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
-  `dificultad` enum('6','8','10','12') DEFAULT NULL,
-  `modo_juego` enum('normal','ninos') DEFAULT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `dificultad` int(11) NOT NULL,
+  `modoJuego` enum('normal','ninos') DEFAULT NULL CHECK (`dificultad` in (6,8,10,12)),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +102,19 @@ CREATE TABLE `problema` (
 
 LOCK TABLES `problema` WRITE;
 /*!40000 ALTER TABLE `problema` DISABLE KEYS */;
+INSERT INTO `problema` VALUES
+(1,'3+76*5=395','2025-05-21',10,'normal'),
+(2,'17+51+69=137','2025-05-21',12,'normal'),
+(3,'21+64=85','2025-05-21',8,'normal'),
+(4,'0*90=0','2025-05-21',6,'ninos'),
+(5,'47-19=28','2025-05-18',8,'ninos'),
+(6,'18/6=3','2025-05-21',6,'normal'),
+(7,'7*90=630','2025-05-21',8,'ninos'),
+(8,'56*85=4760','2025-05-16',10,'normal'),
+(9,'16-9=7','2025-05-14',6,'normal'),
+(10,'56+39+38=133','2025-05-16',12,'normal'),
+(11,'19*30+86=656','2025-05-19',12,'ninos'),
+(12,'75+12+3=90','2025-05-21',10,'ninos');
 /*!40000 ALTER TABLE `problema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,9 +143,13 @@ CREATE TABLE `usuario` (
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES
+('32453@godnfv','1234','$2a$10$7DRK.kb3Y7qUedUlIQNc2..sNHBJo1ZOI2HbXkPe7b0p/Zp/1SfGO',0,'claro'),
 ('guillermito@gmail.com','SrGuille','$2a$10$djQZHGqS8nYxhqg6eM4BROkPpz.SmXrqpVpir2Q78ZxjkeDQUiCbG',0,'claro'),
+('holahola@gmail.com','hola','$2a$10$FrdQaZRrbH0lrZHeDBDam.nVvTL6OtsT9yLm4YJSfm8IzIrViT8y2',0,'claro'),
 ('i22pecum@uco.es','Manuel','$2a$10$bhD0caxKBUfiThNgqDeAMuYp5Pqkj2MZfhgcpBSgzxUxRpoouOi.W',0,'claro'),
-('jose@gmail.com','jose','$2a$10$FXlLqKiDr4nSXt6SJgxDueyhBKimpb7wMTDW/CFBBeZMV4LbBkBuG',0,'claro');
+('jose@gmail.com','jose','$2a$10$FXlLqKiDr4nSXt6SJgxDueyhBKimpb7wMTDW/CFBBeZMV4LbBkBuG',0,'claro'),
+('matas@gmail.com','matas','$2a$10$TrnY3iGrKZD1HMOcQsysPus0C9S9erKHQ6.Vu1VxY07cocUk4FMsi',0,'claro'),
+('pepe@gmail.com','pepe','$2a$10$phzoqTMrA4lHoWDMtqe7HuYybp/9n6MaR0NrCyKQ31Ak8MY4BHKLa',0,'claro');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -142,4 +162,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20 13:46:29
+-- Dump completed on 2025-05-21 14:10:33

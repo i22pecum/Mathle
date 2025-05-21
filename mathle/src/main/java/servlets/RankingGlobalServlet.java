@@ -8,8 +8,8 @@ import java.util.List;
 import data.dao.UsuarioDAO;
 import data.dto.Usuario;
 
-@WebServlet("/ranking")
-public class RankingServlet extends HttpServlet {
+@WebServlet("/RankingGlobalServlet")
+public class RankingGlobalServlet extends HttpServlet {
     private UsuarioDAO usuarioDAO;
 
     public void init() {
@@ -18,9 +18,9 @@ public class RankingServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Usuario> ranking = usuarioDAO.obtenerRanking();
+        List<Usuario> ranking = usuarioDAO.obtenerRankingGlobal();
         request.setAttribute("ranking", ranking);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ranking.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./mvc/view/vistaRankingGlobal.jsp");
         dispatcher.forward(request, response);
     }
 

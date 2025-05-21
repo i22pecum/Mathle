@@ -13,9 +13,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Personalizar Página Web</title>
+
+  <%
+    String tema = (String) session.getAttribute("color");
+    if (tema == null) {
+        tema = "claro";
+    }
+  %>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
 </head>
 <body>
-
+  <div class="container">
   <h1>Personalizar Página Web</h1>
 
   <form method="post" action="/mathle/PersonalizarServlet">
@@ -32,7 +40,7 @@
 
     <p><em>Nota:</em> Al confirmar, se aplicará el fondo y se volverá al inicio.</p>
   </form>
-
+<div>
 
 </body>
 </html>

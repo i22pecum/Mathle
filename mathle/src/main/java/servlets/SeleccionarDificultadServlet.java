@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import data.common.OperacionGenerator;
 import data.dao.ProblemaDAO;
+import data.dao.PartidaDAO;
+import data.dto.Usuario;
 
 @WebServlet("/seleccionarDificultad")
 public class SeleccionarDificultadServlet extends HttpServlet {
@@ -29,9 +31,26 @@ public class SeleccionarDificultadServlet extends HttpServlet {
         int dificultad = Integer.parseInt(dificultadStr);
         session.setAttribute("dificultad", dificultad);
         String modoJuego = (String) session.getAttribute("modoJuego");
-        Date fecha = (Date) session.getAttribute("fecha");
+
+        String fechaStr = (String) session.getAttribute("fecha");
+
+        Date fecha = Date.valueOf(fechaStr);
+
+        // Comprobar si el usuario ha jugado la partida antes
 
         ProblemaDAO problemaDAO = new ProblemaDAO();
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        if(usuario != null) {
+            int idProblema = problemaDAO.obtenerIdProblemaPorCriterios(modoJuego, dificultad, fecha);
+            PartidaDAO partidaDAO = new PartidaDAO();
+            if(partidaDAO.comprobarPartida(usuario.getNombre(), idProblema)){
+                response.sendRedirect("/mathle/RankingPartidaServlet");
+                return;
+            }
+
+        }
 
         String operacion = problemaDAO.obtenerOperacion(dificultad, modoJuego, fecha);
 
@@ -43,6 +62,6 @@ public class SeleccionarDificultadServlet extends HttpServlet {
         session.setAttribute("operacion", operacion);
 
         //// Redirigir a la vista de partida
-        request.getRequestDispatcher("mathle/mvc/view/registro.jsp").forward(request, response);
+        request.getRequestDispatcher("mvc/view/vistaPartida.jsp").forward(request, response);
     }
 }

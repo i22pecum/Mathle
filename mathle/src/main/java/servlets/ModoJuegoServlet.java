@@ -20,7 +20,7 @@ public class ModoJuegoServlet extends HttpServlet {
 
         // Si el modo es "anteriores", sustituimos el modo por el submodo (modoAnterior)
         if ("anteriores".equals(modo)) {
-            if ("normal".equals(modoAnterior) || "nino".equals(modoAnterior)) {
+            if ("normal".equals(modoAnterior) || "ninos".equals(modoAnterior)) {
                 modo = modoAnterior; // reemplazamos el valor
             }
         }

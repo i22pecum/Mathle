@@ -3,8 +3,17 @@
 <html>
 <head>
     <title>Seleccionar Dificultad</title>
+    <%
+        String tema = (String) session.getAttribute("color");
+        if (tema == null) {
+            tema = "claro";
+        }
+    %>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
+
 </head>
 <body>
+    <div class="container">
     <h2>Selecciona una dificultad</h2>
 
     <form action="/mathle/seleccionarDificultad" method="post">
@@ -24,5 +33,6 @@
     </form>
     <!-- Botón para volver -->
     <button onclick="history.back()">Atrás</button>
+<div>
 </body>
 </html>

@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS usuario;
+DROP TABLE IF EXISTS mensaje;
+DROP TABLE IF EXISTS problema;
+DROP TABLE IF EXISTS partida;
+
 CREATE TABLE usuario (
     correo VARCHAR(100) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL UNIQUE,
@@ -17,19 +22,20 @@ CREATE TABLE mensaje (
 CREATE TABLE problema (
     id INT AUTO_INCREMENT PRIMARY KEY,
     operacion VARCHAR(15) NOT NULL,
-    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dificultad ENUM('6', '8', '10', '12'),
-    modo_juego ENUM('normal', 'ninos')
+    fecha DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    dificultad INT NOT NULL,
+    modoJuego ENUM('normal', 'ninos')
+    CHECK (dificultad IN (6, 8, 10, 12))
 );
 
 CREATE TABLE partida (
     idProblema INT NOT NULL,
-    correoUsuario VARCHAR(100) NOT NULL,
+    nombreUsuario VARCHAR(100) NOT NULL,
     duracion INT NOT NULL,
     intentos INT NOT NULL,
     puntuacion FLOAT NOT NULL,
-    PRIMARY KEY (idProblema, correoUsuario),
-    FOREIGN KEY (correoUsuario) REFERENCES usuario(correo),
+    PRIMARY KEY (idProblema, nombreUsuario),
+    FOREIGN KEY (nombreUsuario) REFERENCES usuario(nombre),
     FOREIGN KEY (idProblema) REFERENCES problema(id)
 );
 

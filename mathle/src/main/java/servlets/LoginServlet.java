@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/mathle"); // Redirige al juego si es exitoso
         } else {
             request.setAttribute("error", "Correo o contraseña incorrectos.");
-            request.getRequestDispatcher("/mathle/mvc/view/inicioSesion.jsp").forward(request, response);
+            request.getRequestDispatcher("mvc/view/inicioSesion.jsp").forward(request, response);
         }
     }
 }
