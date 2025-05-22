@@ -153,3 +153,32 @@ a:hover {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);  /* Sombra ligera */
   color: #333;                      /* Texto gris oscuro para buena legibilidad */
 }
+
+/* ===========================
+   MENSAJE DE ERROR (POP-UP)
+=========================== */
+.mensaje {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f44336; /* Rojo por defecto */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  z-index: 1000;
+  opacity: 0.95;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  animation: fadeOut 3s forwards;
+}
+
+.mensaje.exito {
+  background-color: #4CAF50;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 0.95; }
+  80% { opacity: 0.95; }
+  100% { opacity: 0; display: none; }
+}

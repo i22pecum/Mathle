@@ -12,7 +12,7 @@
   %>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
 
-  <script src="${pageContext.request.contextPath}/static/js/registro.js" defer></script>
+  <script src="/js/notificacionMensaje.js" defer></script>
 </head>
 
 <body>
@@ -20,9 +20,14 @@
   <h2>Formulario de Registro</h2>
 
   <!-- Mensaje de error del servidor o del JS -->
-  <p id="mensaje" style="color: red;">
-    <%= request.getAttribute("mensaje") != null ? request.getAttribute("mensaje") : "" %>
-  </p>
+  <%
+    String mensaje = (String) request.getAttribute("mensaje");
+  %>
+  <% if (mensaje != null) { %>
+    <div id="mensaje" class="mensaje">
+      <%= mensaje %>
+    </div>
+  <% } %>
 
   <form action="/mathle/registro" method="post">
     <label for="nombre">Nombre de usuario:</label><br>

@@ -37,6 +37,10 @@ public class Usuario {
         this.puntuacion = puntuacion;
     }
 
+    public void aumentarPuntuacion(float puntuacion) {
+        this.puntuacion += puntuacion;
+    }
+
     public String getTema() {
         return tema;
     }

@@ -1,6 +1,6 @@
 /home/usuario/IW/mathle/src/main/java/servlets/RegistrarServlet.java
-/home/usuario/IW/mathle/src/main/java/servlets/Partida.java
 /home/usuario/IW/mathle/src/main/java/servlets/LogoutServlet.java
+/home/usuario/IW/mathle/src/main/java/servlets/PartidaServlet.java
 /home/usuario/IW/mathle/src/main/java/data/dto/Problema.java
 /home/usuario/IW/mathle/src/main/java/data/common/OperacionGenerator.java
 /home/usuario/IW/mathle/src/main/java/data/dto/Usuario.java

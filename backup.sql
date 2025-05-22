@@ -75,7 +75,8 @@ CREATE TABLE `partida` (
 LOCK TABLES `partida` WRITE;
 /*!40000 ALTER TABLE `partida` DISABLE KEYS */;
 INSERT INTO `partida` VALUES
-(4,'Manuel',4,1,10);
+(4,'Manuel',4,1,10),
+(13,'Manuel',18,1,9);
 /*!40000 ALTER TABLE `partida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +94,7 @@ CREATE TABLE `problema` (
   `dificultad` int(11) NOT NULL,
   `modoJuego` enum('normal','ninos') DEFAULT NULL CHECK (`dificultad` in (6,8,10,12)),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +115,10 @@ INSERT INTO `problema` VALUES
 (9,'16-9=7','2025-05-14',6,'normal'),
 (10,'56+39+38=133','2025-05-16',12,'normal'),
 (11,'19*30+86=656','2025-05-19',12,'ninos'),
-(12,'75+12+3=90','2025-05-21',10,'ninos');
+(12,'75+12+3=90','2025-05-21',10,'ninos'),
+(13,'0/14=0','2025-05-22',6,'normal'),
+(14,'0*28=0','2025-05-22',6,'ninos'),
+(15,'12+18=30','2025-05-22',8,'ninos');
 /*!40000 ALTER TABLE `problema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +150,7 @@ INSERT INTO `usuario` VALUES
 ('32453@godnfv','1234','$2a$10$7DRK.kb3Y7qUedUlIQNc2..sNHBJo1ZOI2HbXkPe7b0p/Zp/1SfGO',0,'claro'),
 ('guillermito@gmail.com','SrGuille','$2a$10$djQZHGqS8nYxhqg6eM4BROkPpz.SmXrqpVpir2Q78ZxjkeDQUiCbG',0,'claro'),
 ('holahola@gmail.com','hola','$2a$10$FrdQaZRrbH0lrZHeDBDam.nVvTL6OtsT9yLm4YJSfm8IzIrViT8y2',0,'claro'),
-('i22pecum@uco.es','Manuel','$2a$10$bhD0caxKBUfiThNgqDeAMuYp5Pqkj2MZfhgcpBSgzxUxRpoouOi.W',0,'claro'),
+('i22pecum@uco.es','Manuel','$2a$10$bhD0caxKBUfiThNgqDeAMuYp5Pqkj2MZfhgcpBSgzxUxRpoouOi.W',10,'claro'),
 ('jose@gmail.com','jose','$2a$10$FXlLqKiDr4nSXt6SJgxDueyhBKimpb7wMTDW/CFBBeZMV4LbBkBuG',0,'claro'),
 ('matas@gmail.com','matas','$2a$10$TrnY3iGrKZD1HMOcQsysPus0C9S9erKHQ6.Vu1VxY07cocUk4FMsi',0,'claro'),
 ('pepe@gmail.com','pepe','$2a$10$phzoqTMrA4lHoWDMtqe7HuYybp/9n6MaR0NrCyKQ31Ak8MY4BHKLa',0,'claro');
@@ -162,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-21 14:10:33
+-- Dump completed on 2025-05-22 11:13:22

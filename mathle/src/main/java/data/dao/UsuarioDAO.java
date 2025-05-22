@@ -132,6 +132,20 @@ public class UsuarioDAO {
         return ranking;
     }
 
+    public boolean actualizarPuntuacion(String correo, float puntuacion) {
+        String query = "UPDATE usuario SET puntuacion = ? WHERE correo = ?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setFloat(1, puntuacion);
+            stmt.setString(2, correo);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
         
 }

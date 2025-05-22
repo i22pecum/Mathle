@@ -42,7 +42,13 @@ public class SeleccionarDificultadServlet extends HttpServlet {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-        if(usuario != null) {
+        String operacion = problemaDAO.obtenerOperacion(dificultad, modoJuego, fecha);
+
+        if (operacion == null) {
+            operacion = OperacionGenerator.generarOperacion(dificultad);
+            problemaDAO.insertarProblema(dificultad, modoJuego, fecha, operacion);
+        }
+        else if(usuario != null) {
             int idProblema = problemaDAO.obtenerIdProblemaPorCriterios(modoJuego, dificultad, fecha);
             PartidaDAO partidaDAO = new PartidaDAO();
             if(partidaDAO.comprobarPartida(usuario.getNombre(), idProblema)){
@@ -50,13 +56,6 @@ public class SeleccionarDificultadServlet extends HttpServlet {
                 return;
             }
 
-        }
-
-        String operacion = problemaDAO.obtenerOperacion(dificultad, modoJuego, fecha);
-
-        if (operacion == null) {
-            operacion = OperacionGenerator.generarOperacion(dificultad);
-            problemaDAO.insertarProblema(dificultad, modoJuego, fecha, operacion);
         }
 
         session.setAttribute("operacion", operacion);

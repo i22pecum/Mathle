@@ -2,9 +2,21 @@
 <%
     Integer dificultad = (Integer) session.getAttribute("dificultad");
     String operacion = (String) session.getAttribute("operacion");
+    String modoJuego = (String) session.getAttribute("modoJuego");
+    String operacionVisible = "";
 
     if (dificultad == null || operacion == null) {
         throw new RuntimeException("Error: No se ha definido la dificultad u operación en la sesión.");
+    }
+
+    if ("ninos".equals(modoJuego)) {
+        int mitad = dificultad / 2;
+        operacionVisible = operacion.substring(0, mitad);
+    }
+
+    String tema = (String) session.getAttribute("color");
+    if (tema == null) {
+        tema = "claro";
     }
 %>
 <!DOCTYPE html>
@@ -12,6 +24,7 @@
 <head>
     <title>Jugar Partida</title>
     <link rel="stylesheet" href="css/estilos-juego.css" />
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
     <style>
         .casilla {
             width: 40px;
@@ -39,6 +52,8 @@
     <script>
         const operacionCorrecta = "<%= operacion %>";
         const dificultad = <%= dificultad %>;
+        const modoJuego = "<%= modoJuego %>";
+        const operacionVisible = "<%= operacionVisible %>";
         let filaActual = 0;
         let intentos = 0;
         let tiempoInicio = Date.now();
@@ -79,13 +94,29 @@
         }
 
         function activarFila(fila) {
-            for (let col = 0; col < dificultad; col++) {
-                const input = document.getElementById(`input-${fila}-${col}`);
-                if (input) {
-                    input.disabled = false;
+            for (let f = 0; f < 6; f++) {
+                for (let col = 0; col < dificultad; col++) {
+                    const input = document.getElementById(`input-${f}-${col}`);
+                    if (!input) continue;
+                    // Solo habilita la fila activa
+                    if (f === fila) {
+                        // En modo niños, la primera mitad está bloqueada
+                        if (modoJuego === "ninos" && col < dificultad / 2) {
+                            input.value = operacionCorrecta[col];
+                            input.disabled = true;
+                            input.classList.add("verde");
+                        } else {
+                            input.disabled = false;
+                        }
+                    } else {
+                        input.disabled = true;
+                    }
                 }
             }
-            document.getElementById(`input-${fila}-0`).focus();
+            // Enfoca el primer input editable de la fila activa
+            let startCol = (modoJuego === "ninos" && fila === 0) ? Math.floor(dificultad / 2) : 0;
+            const firstEditable = document.getElementById(`input-${fila}-${startCol}`);
+            if (firstEditable) firstEditable.focus();
         }
 
         function desactivarFila(fila) {
@@ -101,12 +132,12 @@
             const intento = leerFila(filaActual);
 
             if (intento.length !== dificultad) {
-                alert("Completa toda la fila.");
+                mostrarMensaje("Completa toda la fila.");
                 return;
             }
 
             if (!esOperacionValida(intento)) {
-                alert("La operación no es válida.");
+                mostrarMensaje("La operación no es válida.");
                 return;
             }
 
@@ -115,7 +146,6 @@
             const resultado = Array(dificultad).fill("gris");
             const usados = Array(dificultad).fill(false);
 
-            // Verde
             for (let i = 0; i < dificultad; i++) {
                 if (intento[i] === operacionCorrecta[i]) {
                     resultado[i] = "verde";
@@ -123,7 +153,6 @@
                 }
             }
 
-            // Amarillo
             for (let i = 0; i < dificultad; i++) {
                 if (resultado[i] !== "gris") continue;
                 for (let j = 0; j < dificultad; j++) {
@@ -135,7 +164,6 @@
                 }
             }
 
-            // Aplicar colores y desactivar inputs actuales
             for (let col = 0; col < dificultad; col++) {
                 const input = document.getElementById(`input-${filaActual}-${col}`);
                 input.classList.add(resultado[col]);
@@ -143,11 +171,11 @@
             }
 
             if (intento === operacionCorrecta) {
+                mostrarMensaje("¡Correcto! Has ganado.", "exito");
                 setTimeout(() => {
                     tiempo = calcularTiempo();
-                    alert("¡Correcto! Has ganado.");
                     enviarResultado(intentos, tiempo);
-                }, 100);
+                }, 1500);
                 return;
             }
 
@@ -155,16 +183,16 @@
                 filaActual++;
                 activarFila(filaActual);
             } else {
+                mostrarMensaje("Has perdido. La operación era: " + operacionCorrecta);
                 setTimeout(() => {
                     tiempo = calcularTiempo();
-                    alert("Has perdido. La operación era: " + operacionCorrecta);
                     enviarResultado(7, tiempo);
-                }, 100);
+                }, 1500);
             }
         }
 
         function calcularTiempo() {
-            return Math.floor((Date.now() - tiempoInicio) / 1000); // tiempo en segundos
+            return Math.floor((Date.now() - tiempoInicio) / 1000);
         }
 
         function enviarResultado(numIntentos, tiempo) {
@@ -173,36 +201,57 @@
             document.getElementById("formResultado").submit();
         }
 
+        function mostrarMensaje(texto, tipo = "error") {
+            const mensaje = document.getElementById("mensaje");
+            mensaje.textContent = texto;
+            mensaje.className = "mensaje " + (tipo === "exito" ? "exito" : "");
+            mensaje.style.display = "block";
+
+            // Reinicia animación (permite mostrar varias veces)
+            mensaje.style.animation = "none";
+            mensaje.offsetHeight; // forzar repaint
+            mensaje.style.animation = "fadeOut 3s forwards";
+        }
+
         window.onload = function () {
             activarFila(filaActual);
+
+            if (modoJuego === "ninos" && operacionVisible) {
+                for (let i = 0; i < operacionVisible.length; i++) {
+                    const input = document.getElementById(`input-0-${i}`);
+                    if (input) {
+                        input.value = operacionVisible[i];
+                        input.disabled = true;
+                        input.classList.add("verde");
+                    }
+                }
+                const siguiente = document.getElementById(`input-0-${operacionVisible.length}`);
+                if (siguiente) siguiente.focus();
+            }
         };
     </script>
-    <title>Seleccionar Dificultad</title>
-    <%
-        String tema = (String) session.getAttribute("color");
-        if (tema == null) {
-            tema = "claro";
-        }
-    %>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
 </head>
 <body>
-    <div class="container">
+<div id="mensaje" style="display:none;" class="mensaje"></div>
+<div class="container">
     <h2>Introduce la operación matemática</h2>
 
     <form onsubmit="event.preventDefault(); comprobarIntento();">
         <% for (int fila = 0; fila < 6; fila++) { %>
             <div class="fila">
-                <% for (int col = 0; col < dificultad; col++) { %>
+                <% for (int col = 0; col < dificultad; col++) {
+                    boolean mostrarFijo = "ninos".equals(modoJuego) && col < (dificultad / 2);
+                    char caracter = mostrarFijo ? operacion.charAt(col) : ' ';
+                %>
                     <input type="text"
-                           id="input-<%= fila %>-<%= col %>"
-                           maxlength="1"
-                           class="casilla"
-                           data-fila="<%= fila %>"
-                           data-col="<%= col %>"
-                           autocomplete="off"
-                           disabled
-                           onkeyup="avanzarFocus(event, this.dataset.fila, this.dataset.col)">
+                        id="input-<%= fila %>-<%= col %>"
+                        maxlength="1"
+                        class="casilla"
+                        data-fila="<%= fila %>"
+                        data-col="<%= col %>"
+                        autocomplete="off"
+                        value=""
+                        onkeyup="avanzarFocus(event, this.dataset.fila, this.dataset.col)">
                 <% } %>
             </div>
         <% } %>
@@ -219,6 +268,6 @@
         <input type="hidden" name="intentos" id="inputIntentos">
         <input type="hidden" name="tiempo" id="inputTiempo">
     </form>
-    <div>
+</div>
 </body>
 </html>
