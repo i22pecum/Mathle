@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="data.dto.Usuario" %>
 <%
     if(session.getAttribute("usuario") == null){
         response.sendRedirect("/mathle");
@@ -11,9 +12,17 @@
     <title>Publicar Mensaje</title>
 
     <%
-    String tema = (String) session.getAttribute("color");
-    if (tema == null) {
-        tema = "claro";
+    String tema = "";
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+    if(usuario == null){
+        tema = (String) session.getAttribute("color");
+        if (tema == null) {
+            tema = "claro"; // valor por defecto
+        }
+    }
+    else{
+        tema = usuario.getTema();
     }
   %>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">

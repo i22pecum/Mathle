@@ -6,11 +6,14 @@ import jakarta.servlet.annotation.*;
 import java.sql.*;
 import java.io.IOException;
 
+import java.util.ArrayList;
+
 import data.dao.ProblemaDAO;
 import data.dao.UsuarioDAO;
 import data.dao.PartidaDAO;
 
 import data.dto.Usuario;
+import data.dto.Partida;
 
 @WebServlet("/partida")
 public class PartidaServlet extends HttpServlet {
@@ -23,10 +26,6 @@ public class PartidaServlet extends HttpServlet {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         
-        if (usuario == null) {
-            response.sendRedirect("/mathle/RankingPartidaServlet");
-            return;
-        }
 
         String tiempoStr = request.getParameter("tiempo");
         String intentosStr = request.getParameter("intentos");
@@ -34,7 +33,6 @@ public class PartidaServlet extends HttpServlet {
         int intentos = Integer.parseInt(intentosStr);
         int idProblema = 0;
 
-        
         int dificultad = (int) session.getAttribute("dificultad");
 
         float puntuacion = calcularPuntuacion(intentos, tiempo, dificultad);
@@ -48,13 +46,20 @@ public class PartidaServlet extends HttpServlet {
         ProblemaDAO problemaDAO = new ProblemaDAO();
         idProblema = problemaDAO.obtenerIdProblemaPorCriterios(modo, dificultad, fecha);
 
+        if (usuario == null) {
+            ArrayList<Partida> partidas = (ArrayList<Partida>) session.getAttribute("partidasJugadas");
+            partidas.add(new Partida(idProblema, puntuacion, tiempo, intentos));
+            response.sendRedirect("/mathle/RankingPartidaServlet");
+            return;
+        }
+
         PartidaDAO partidaDAO = new PartidaDAO();
         partidaDAO.insertarPartida(usuario.getNombre(), idProblema, puntuacion, tiempo, intentos);
 
         usuario.aumentarPuntuacion(puntuacion);
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.actualizarPuntuacion(usuario.getNombre(), usuario.getPuntuacion());
+        usuarioDAO.actualizarPuntuacion(usuario.getCorreo(), usuario.getPuntuacion());
 
         response.sendRedirect("/mathle/RankingPartidaServlet");
     }

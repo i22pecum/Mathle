@@ -21,7 +21,7 @@ public class RankingPartidaServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        String modo = (String) session.getAttribute("modo");
+        String modo = (String) session.getAttribute("modoJuego");
         int dificultad = 0;
         dificultad = (int) session.getAttribute("dificultad");
         String fechaStr = (String) session.getAttribute("fecha");

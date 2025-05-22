@@ -1,12 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="data.dto.Usuario" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Seleccionar Modo de Juego</title>
     <%
-        String tema = (String) session.getAttribute("color");
-        if (tema == null) {
-            tema = "claro";
+        String tema = "";
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        if(usuario == null){
+            tema = (String) session.getAttribute("color");
+            if (tema == null) {
+                tema = "claro"; // valor por defecto
+            }
+        }
+        else{
+            tema = usuario.getTema();
         }
     %>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
@@ -50,14 +59,21 @@
     <h2>Selecciona un modo de juego</h2>
 
     <form action="/mathle/modoJuego" method="post">
-        <input type="radio" id="nino" name="modo" value="ninos" required onclick="mostrarDesplegable()">
-        <label for="nino">Niño</label><br>
+        <div class="radio-option">
+            <input type="radio" id="nino" name="modo" value="ninos" required onclick="mostrarDesplegable()">
+            <label for="nino">Niño</label>
+        </div>
 
-        <input type="radio" id="desafio" name="modo" value="normal" onclick="mostrarDesplegable()">
-        <label for="desafio">Desafío</label><br>
+        <div class="radio-option">
+            <input type="radio" id="desafio" name="modo" value="normal" onclick="mostrarDesplegable()">
+            <label for="desafio">Desafío</label>
+        </div>
 
-        <input type="radio" id="anteriores" name="modo" value="anteriores" onclick="mostrarDesplegable()">
-        <label for="anteriores">Desafíos anteriores</label><br><br>
+        <div class="radio-option">
+            <input type="radio" id="anteriores" name="modo" value="anteriores" onclick="mostrarDesplegable()">
+            <label for="anteriores">Desafíos anteriores</label>
+        </div>
+
 
         <!-- Opciones adicionales para "anteriores" -->
         <div id="opcionesAnteriores" style="display:none;">

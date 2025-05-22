@@ -4,7 +4,11 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import data.dao.UsuarioDAO;
+import data.dao.PartidaDAO;
+import data.dto.Partida;
 import data.dto.Usuario;
 
 @WebServlet("/login")
@@ -20,6 +24,19 @@ public class LoginServlet extends HttpServlet {
         if (usuarioDAO.verificarCredenciales(correo, contrasena)) {
             usuario = usuarioDAO.obtenerDatosUsuario(correo);
             HttpSession session = request.getSession();
+
+            ArrayList<Partida> partidas = (ArrayList<Partida>) session.getAttribute("partidasJugadas");
+            if(partidas.isEmpty() == false){
+                PartidaDAO partidaDAO = new PartidaDAO();
+                for (Partida partida : partidas) {
+                    if(partidaDAO.comprobarPartida(usuario.getNombre(), partida.getIdProblema()) == false) {
+                        partidaDAO.insertarPartida(usuario.getNombre(), partida.getIdProblema(), partida.getPuntuacion(), partida.getDuracion(), partida.getIntentos());
+                        usuario.aumentarPuntuacion(partida.getPuntuacion());
+                    }
+                }
+                usuarioDAO.actualizarPuntuacion(usuario.getCorreo(), usuario.getPuntuacion());
+            }
+
             session.setAttribute("usuario", usuario);
             response.sendRedirect("/mathle"); // Redirige al juego si es exitoso
         } else {

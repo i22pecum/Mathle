@@ -1,15 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="data.dto.Partida" %>
+<%@ page import="data.dto.Usuario" %>
 <%
-    String color = (String) session.getAttribute("color");
-    String fondo = "white";
+    ArrayList<Partida> partidasJugadas = new ArrayList<>();
+    session.setAttribute("partidasJugadas", partidasJugadas);
+    
+    String tema = "";
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-    if (color != null) {
-        switch (color) {
-            case "oscuro": fondo = "#333"; break;
-            case "azul": fondo = "#cce6ff"; break;
-            case "verde": fondo = "#ccffcc"; break;
-            default: fondo = "white"; break;
+    if(usuario == null){
+        tema = (String) session.getAttribute("color");
+        if (tema == null) {
+            tema = "claro"; // valor por defecto
         }
+    }
+    else{
+        tema = usuario.getTema();
     }
 %>
 <html lang="es">
@@ -17,19 +24,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Menu Principal</title>
-
-        <%
-            String tema = (String) session.getAttribute("color");
-            if (tema == null) {
-                tema = "claro";
-            }
-        %>
         <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
     </head>
     <body>
         <div class="container">
-
-        <h1>Menú Principal</h1>
+        <h1>¡Bienvenido a MATHLE!</h1>
+        <% if(tema.equals("claro") || tema.equals("verde")) { %>
+            <img src="<%= request.getContextPath() %>/img/Mathle.png" alt="Logo Mathle" class="logo">
+        <% } else { %>
+            <img src="<%= request.getContextPath() %>/img/Mathle_Azul.png" alt="Logo Mathle" class="logo">
+        <% } %>
+        <h2>Menú Principal</h2>  
 
         <div class="button-container">
 

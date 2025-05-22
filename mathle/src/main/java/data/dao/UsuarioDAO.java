@@ -121,7 +121,7 @@ public class UsuarioDAO {
             
             while (rs.next()) {
                 String nombre = rs.getString("nombre");
-                int puntuacion = rs.getInt("puntuacion");
+                float puntuacion = rs.getFloat("puntuacion");
                 ranking.add(new Usuario(nombre, puntuacion));
             }
 
@@ -145,6 +145,21 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+    public boolean actualizarTema(String correo, String tema) {
+        String query = "UPDATE usuario SET tema = ? WHERE correo = ?";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, tema);
+            stmt.setString(2, correo);
+            int filasActualizadas = stmt.executeUpdate();
+            return filasActualizadas == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
         

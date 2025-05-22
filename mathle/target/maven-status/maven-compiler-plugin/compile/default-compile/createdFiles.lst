@@ -1,7 +1,5 @@
 data/dto/Usuario.class
-servlets/PersonalizarServlet.class
 servlets/SeleccionarDificultadServlet.class
-servlets/RankingGlobalServlet.class
 data/common/OperacionGenerator.class
 data/dao/UsuarioDAO.class
 servlets/MensajeServlet.class
@@ -15,4 +13,3 @@ data/dao/PartidaDAO.class
 servlets/RegistrarServlet.class
 data/dao/MensajeDAO.class
 servlets/LoginServlet.class
-servlets/ModoJuegoServlet.class

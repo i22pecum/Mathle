@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="data.dto.Usuario" %>
 <%
     Integer dificultad = (Integer) session.getAttribute("dificultad");
     String operacion = (String) session.getAttribute("operacion");
@@ -14,9 +15,17 @@
         operacionVisible = operacion.substring(0, mitad);
     }
 
-    String tema = (String) session.getAttribute("color");
-    if (tema == null) {
-        tema = "claro";
+    String tema = "";
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+    if(usuario == null){
+        tema = (String) session.getAttribute("color");
+        if (tema == null) {
+            tema = "claro"; // valor por defecto
+        }
+    }
+    else{
+        tema = usuario.getTema();
     }
 %>
 <!DOCTYPE html>
@@ -58,6 +67,7 @@
         let intentos = 0;
         let tiempoInicio = Date.now();
         let tiempo;
+        let intentosArray = [];
 
         function avanzarFocus(event, fila, col) {
             fila = parseInt(fila);
@@ -164,6 +174,12 @@
                 }
             }
 
+            intentosArray.push({
+                intento: intento,
+                colores: resultado
+            });
+            guardarIntentos();
+
             for (let col = 0; col < dificultad; col++) {
                 const input = document.getElementById(`input-${filaActual}-${col}`);
                 input.classList.add(resultado[col]);
@@ -196,6 +212,7 @@
         }
 
         function enviarResultado(numIntentos, tiempo) {
+            sessionStorage.removeItem("intentosPartida");
             document.getElementById("inputIntentos").value = numIntentos;
             document.getElementById("inputTiempo").value = tiempo;
             document.getElementById("formResultado").submit();
@@ -213,8 +230,39 @@
             mensaje.style.animation = "fadeOut 3s forwards";
         }
 
+        // Guarda los intentos en sessionStorage
+        function guardarIntentos() {
+            sessionStorage.setItem("intentosPartida", JSON.stringify(intentosArray));
+        }
+
+        // Rellena una fila con un intento anterior
+        function restaurarIntento(fila, intentoObj) {
+            const intento = intentoObj.intento;
+            const colores = intentoObj.colores;
+            for (let col = 0; col < dificultad; col++) {
+                const input = document.getElementById(`input-${fila}-${col}`);
+                if (input) {
+                    input.value = intento[col] || "";
+                    input.classList.add(colores[col]);
+                    input.disabled = true;
+                }
+            }
+        }
+
         window.onload = function () {
             activarFila(filaActual);
+
+            // Restaurar intentos desde sessionStorage
+            const guardados = sessionStorage.getItem("intentosPartida");
+            if (guardados) {
+                intentosArray = JSON.parse(guardados);
+                intentos = intentosArray.length;
+                for (let i = 0; i < intentosArray.length; i++) {
+                    restaurarIntento(i, intentosArray[i]);
+                }
+                filaActual = intentosArray.length;
+                if (filaActual < 6) activarFila(filaActual);
+            }
 
             if (modoJuego === "ninos" && operacionVisible) {
                 for (let i = 0; i < operacionVisible.length; i++) {

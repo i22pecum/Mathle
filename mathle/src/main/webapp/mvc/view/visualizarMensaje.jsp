@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, data.dto.Mensaje" %>
+<%@ page import="data.dto.Usuario" %>
 <%
     if(session.getAttribute("usuario") == null){
         response.sendRedirect("/mathle");
@@ -13,9 +14,17 @@
     <title>Mensajes Blog</title>
 
     <%
-    String tema = (String) session.getAttribute("color");
-    if (tema == null) {
-        tema = "claro";
+    String tema = "";
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+    if(usuario == null){
+        tema = (String) session.getAttribute("color");
+        if (tema == null) {
+            tema = "claro"; // valor por defecto
+        }
+    }
+    else{
+        tema = usuario.getTema();
     }
   %>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
@@ -43,8 +52,14 @@
     <form action="/mathle/mvc/view/publicarMensaje.jsp" method="get">
         <input type="submit" value="Publicar mensaje">
     </form>
-    <br><br>
 <div>
+
+<!-- Botón para salir -->
+<form action="<%= request.getContextPath() %>/index.jsp" method="get">
+    <input type="submit" value="Salir">
+    <br><br>
+</form>
+
 <!-- Listado de mensajes -->
 <div>
 <%
@@ -57,9 +72,7 @@
         <p>
             <strong>Autor:</strong> <%= m.getAutor() %><br>
             <strong>Mensaje:</strong> <%= m.getMensaje() %><br>
-            <div class="fecha-mensaje">
-                <span><%= m.getFecha() %></span>
-            </div>
+            <span><%= m.getFecha() %></span>
         </p>
 
     </div>
@@ -75,12 +88,6 @@
 </div>
 
 <br>
-
-<!-- Botón para salir -->
-<form action="<%= request.getContextPath() %>/index.jsp" method="get">
-    <input type="submit" value="Salir">
-</form>
-
 
 <div>
 </body>

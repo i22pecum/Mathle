@@ -8,17 +8,27 @@
     <meta charset="UTF-8">
     <title>Ranking de Partida</title>
     <%
-        String tema = (String) session.getAttribute("color");
+    String tema = "";
+    Usuario usuarioActual = (Usuario) session.getAttribute("usuario");
+
+    if(usuarioActual == null){
+        tema = (String) session.getAttribute("color");
         if (tema == null) {
-            tema = "claro";
+            tema = "claro"; // valor por defecto
         }
+    }
+    else{
+        tema = usuarioActual.getTema();
+    }
     %>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
 
 </head>
 <body>
+<div class="container">
 
-<h2>Ranking de Partida</h2>
+<h1>Ranking de Partida</h1>
+<h2>Este es el Ranking actual de esta Partida</h2>
 
 <%
     String error = (String) request.getAttribute("error");
@@ -33,7 +43,7 @@
     List<Usuario> ranking = (List<Usuario>) request.getAttribute("ranking");
     if (ranking == null || ranking.isEmpty()) {
 %>
-    <p>No hay datos de ranking para esta partida.</p>
+    <p>No hay datos de ranking para esta partida. Inicia Sesión para que aparezca la tuya.</p>
 <%
     } else {
 %>
@@ -49,8 +59,9 @@
         <%
             int posicion = 1;
             for (Usuario usuario : ranking) {
+                boolean esUsuarioActual = usuarioActual != null && usuario.getNombre().equals(usuarioActual.getNombre());
         %>
-            <tr>
+            <tr <%= esUsuarioActual ? "class='ranking-usuario-actual'" : "" %>>
                 <td><%= posicion++ %></td>
                 <td><%= usuario.getNombre() %></td>
                 <td><%= usuario.getPuntuacion() %></td>
@@ -64,8 +75,10 @@
     }
 %>
 
-<!-- Botón para volver al menú o página anterior -->
-<button onclick="history.back()">Atrás</button>
-
+<!-- Botón para salir -->
+<form action="<%= request.getContextPath() %>/index.jsp" method="get">
+    <input type="submit" value="Volver al Menú Principal">
+</form>
+<div>
 </body>
 </html>

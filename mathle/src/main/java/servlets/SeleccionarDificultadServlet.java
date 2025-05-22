@@ -6,11 +6,13 @@ import jakarta.servlet.annotation.*;
 import java.sql.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import data.common.OperacionGenerator;
 import data.dao.ProblemaDAO;
 import data.dao.PartidaDAO;
 import data.dto.Usuario;
+import data.dto.Partida;
 
 @WebServlet("/seleccionarDificultad")
 public class SeleccionarDificultadServlet extends HttpServlet {
@@ -48,14 +50,27 @@ public class SeleccionarDificultadServlet extends HttpServlet {
             operacion = OperacionGenerator.generarOperacion(dificultad);
             problemaDAO.insertarProblema(dificultad, modoJuego, fecha, operacion);
         }
-        else if(usuario != null) {
-            int idProblema = problemaDAO.obtenerIdProblemaPorCriterios(modoJuego, dificultad, fecha);
+
+        int idProblema = problemaDAO.obtenerIdProblemaPorCriterios(modoJuego, dificultad, fecha);
+        if(usuario != null) {
             PartidaDAO partidaDAO = new PartidaDAO();
             if(partidaDAO.comprobarPartida(usuario.getNombre(), idProblema)){
                 response.sendRedirect("/mathle/RankingPartidaServlet");
                 return;
             }
-
+        }
+        else{
+            ArrayList<Partida> partidas = (ArrayList<Partida>) session.getAttribute("partidasJugadas");
+            ArrayList<Integer> idProblemasPartidas = new ArrayList<>();
+            if(partidas.isEmpty() == false){
+                for (Partida partida : partidas) {
+                    idProblemasPartidas.add(partida.getIdProblema());
+                }
+                if(idProblemasPartidas.contains(idProblema)){
+                    response.sendRedirect("/mathle/RankingPartidaServlet");
+                    return;
+                } 
+            }
         }
 
         session.setAttribute("operacion", operacion);
