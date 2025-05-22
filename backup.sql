@@ -102,7 +102,7 @@ CREATE TABLE `problema` (
   `dificultad` int(11) NOT NULL,
   `modoJuego` enum('normal','ninos') DEFAULT NULL CHECK (`dificultad` in (6,8,10,12)),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +131,8 @@ INSERT INTO `problema` VALUES
 (17,'58*57=3306','2025-05-22',10,'ninos'),
 (18,'88-64=24','2025-05-22',8,'normal'),
 (19,'31-2+23+6=58','2025-05-22',12,'normal'),
-(20,'13-7=6','2025-05-20',6,'ninos');
+(20,'13-7=6','2025-05-20',6,'ninos'),
+(21,'0*49=0','2025-05-23',6,'ninos');
 /*!40000 ALTER TABLE `problema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,4 +182,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-22 20:27:44
+-- Dump completed on 2025-05-23  0:35:38

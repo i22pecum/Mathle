@@ -16,6 +16,11 @@ public class ModoJuegoServlet extends HttpServlet {
         String modoAnterior = request.getParameter("modoAnterior"); // solo si modo == "anteriores"
         String fechaSeleccionada = request.getParameter("fechaSeleccionada");
 
+        if(modo == null){
+            response.sendRedirect("/mathle");
+            return;
+        }
+
         HttpSession session = request.getSession();
 
         // Si el modo es "anteriores", sustituimos el modo por el submodo (modoAnterior)

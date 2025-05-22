@@ -3,8 +3,10 @@
 <%@ page import="data.dto.Partida" %>
 <%@ page import="data.dto.Usuario" %>
 <%
-    ArrayList<Partida> partidasJugadas = new ArrayList<>();
-    session.setAttribute("partidasJugadas", partidasJugadas);
+    if(session.getAttribute("partidasJugadas") == null){
+        ArrayList<Partida> partidasJugadas = new ArrayList<>();
+        session.setAttribute("partidasJugadas", partidasJugadas);
+    }
     
     String tema = "";
     Usuario usuario = (Usuario) session.getAttribute("usuario");

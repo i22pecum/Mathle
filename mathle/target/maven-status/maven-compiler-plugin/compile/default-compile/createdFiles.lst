@@ -4,7 +4,6 @@ data/common/OperacionGenerator.class
 data/dao/UsuarioDAO.class
 servlets/MensajeServlet.class
 data/dto/Mensaje.class
-data/dto/Problema.class
 servlets/RankingPartidaServlet.class
 servlets/PartidaServlet.class
 servlets/LogoutServlet.class

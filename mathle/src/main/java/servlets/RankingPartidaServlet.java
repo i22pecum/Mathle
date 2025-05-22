@@ -21,15 +21,14 @@ public class RankingPartidaServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         
-        String modo = (String) session.getAttribute("modoJuego");
-        int dificultad = 0;
-        dificultad = (int) session.getAttribute("dificultad");
-        String fechaStr = (String) session.getAttribute("fecha");
-
-        if (modo == null || dificultad == 0 || fechaStr == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parámetros requeridos: modo, dificultad y fecha.");
+        if (session.getAttribute("modoJuego") == null || session.getAttribute("dificultad") == null || session.getAttribute("fecha") == null) {
+            response.sendRedirect("/mathle");
             return;
         }
+
+        String modo = (String) session.getAttribute("modoJuego");
+        int dificultad = (int) session.getAttribute("dificultad");
+        String fechaStr = (String) session.getAttribute("fecha");
 
         Date fecha;
         try {
@@ -40,6 +39,10 @@ public class RankingPartidaServlet extends HttpServlet {
         }
 
         Integer idProblema = problemaDAO.obtenerIdProblemaPorCriterios(modo, dificultad, fecha);
+
+        session.removeAttribute("modoJuego");
+        session.removeAttribute("dificultad");
+        session.removeAttribute("fecha");
 
         if (idProblema == null) {
             request.setAttribute("error", "No se encontró una partida con esos criterios.");

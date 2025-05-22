@@ -25,10 +25,15 @@ public class PartidaServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        
 
         String tiempoStr = request.getParameter("tiempo");
         String intentosStr = request.getParameter("intentos");
+
+        if(tiempoStr == null || intentosStr == null || session.getAttribute("dificultad") == null){
+            response.sendRedirect("/mathle");
+            return;
+        }
+
         int tiempo = Integer.parseInt(tiempoStr);
         int intentos = Integer.parseInt(intentosStr);
         int idProblema = 0;
@@ -65,6 +70,11 @@ public class PartidaServlet extends HttpServlet {
     }
 
     private float calcularPuntuacion(int intentos, int tiempo, int dificultad) {
+
+        if(intentos == 7){
+            return 0;
+        }
+
         float puntuacion = 0;
 
         puntuacion = 7 - intentos;

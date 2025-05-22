@@ -9,6 +9,11 @@
   String tema = "";
   Usuario usuario = (Usuario) session.getAttribute("usuario");
 
+  if(usuario != null){
+    response.sendRedirect("/mathle");
+    return;
+  }
+
   if(usuario == null){
       tema = (String) session.getAttribute("color");
       if (tema == null) {
@@ -21,10 +26,10 @@
 %>
 
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/Tema<%= tema.substring(0,1).toUpperCase() + tema.substring(1) %>.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/contrasenaRegisterLogin.css">  
   <script src="/js/notificacionMensaje.js" defer></script>
   <script src="<%= request.getContextPath() %>/js/verContrasena.js" defer></script>
 
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/ontrasenaRegisterLogin.css">  
 </head>
 
 <body>

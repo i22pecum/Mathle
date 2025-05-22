@@ -3,6 +3,10 @@
 
 <%
     List<Usuario> ranking = (List<Usuario>) request.getAttribute("ranking");
+    if (ranking == null){
+        response.sendRedirect("/mathle");
+        return;
+    }
 %>
 
 <!DOCTYPE html>
@@ -32,7 +36,7 @@
 <h2 style="text-align: center;">Ranking Global de Usuarios</h2>
 
 <%
-    if (ranking == null || ranking.isEmpty()) {
+    if (ranking.isEmpty()) {
 %>
     <p style="text-align: center;">No hay datos de usuarios disponibles para mostrar el ranking.</p>
 <%

@@ -21,22 +21,29 @@ public class SeleccionarDificultadServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String dificultadStr = request.getParameter("dificultad");
+        HttpSession session = request.getSession();
 
-        if (dificultadStr == null || dificultadStr.trim().isEmpty()) {
-            request.setAttribute("mensaje", "Debes seleccionar una dificultad.");
-            request.getRequestDispatcher("/mathle/mvc/view/seleccionarDificultad.jsp").forward(request, response);
+        if (dificultadStr == null || dificultadStr.trim().isEmpty() || session.getAttribute("modoJuego") == null || session.getAttribute("fecha") == null) {
+            response.sendRedirect("/mathle");
             return;
         }
 
         // Guardar dificultad en sesión
-        HttpSession session = request.getSession();
+        
         int dificultad = Integer.parseInt(dificultadStr);
         session.setAttribute("dificultad", dificultad);
         String modoJuego = (String) session.getAttribute("modoJuego");
 
         String fechaStr = (String) session.getAttribute("fecha");
-
-        Date fecha = Date.valueOf(fechaStr);
+        Date fecha = null;
+        
+        try{
+            fecha = Date.valueOf(fechaStr);
+        } catch (Exception e){
+            response.sendRedirect("/mathle");
+            return;
+        }
+        
 
         // Comprobar si el usuario ha jugado la partida antes
 

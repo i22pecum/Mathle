@@ -41,7 +41,11 @@
 
 <%
     List<Usuario> ranking = (List<Usuario>) request.getAttribute("ranking");
-    if (ranking == null || ranking.isEmpty()) {
+    if (ranking == null){
+        response.sendRedirect("/mathle");
+        return;
+    }
+    if (ranking.isEmpty()) {
 %>
     <p>No hay datos de ranking para esta partida. Inicia Sesión para que aparezca la tuya.</p>
 <%

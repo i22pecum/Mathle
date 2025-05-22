@@ -3,6 +3,7 @@
 <%
     if(session.getAttribute("usuario") == null){
         response.sendRedirect("/mathle");
+        return;
     }
 %>
 <!DOCTYPE html>
