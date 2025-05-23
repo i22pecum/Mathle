@@ -10,8 +10,13 @@ public class OperacionGenerator {
 
         while (true) {
             StringBuilder expresion = new StringBuilder();
-
-            int operando = rand.nextInt(100); // 0 a 99
+            int operando = 0;
+            if (longitud == 6){
+                operando = rand.nextInt(99) + 1 ; // 1 a 99
+            }
+            else{
+                operando = rand.nextInt(100); // 0 a 99
+            }
             int resultado = operando;
             expresion.append(operando);
             int longitudActual = String.valueOf(operando).length();
