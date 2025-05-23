@@ -43,12 +43,7 @@
                 <input type="submit" value="Enviar">
             </div>
         </form>
-
-
-
     </div>
-
-    <div class="pie">Publicar mensajes blog</div>
 </div>
 
 </body>

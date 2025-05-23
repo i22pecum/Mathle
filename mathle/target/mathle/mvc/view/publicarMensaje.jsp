@@ -47,8 +47,6 @@
 
 
     </div>
-
-    <div class="pie">Publicar mensajes blog</div>
 </div>
 
 </body>

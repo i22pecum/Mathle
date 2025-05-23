@@ -4,12 +4,26 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
+
+import data.common.DBProperties;
+import data.common.SQLProperties;
 import data.dto.Usuario;
 
 public class UsuarioDAO {
-    private final String url = "jdbc:mariadb://localhost:3306/mathle";
-    private final String user = "root";
-    private final String password = "1234";
+    private final String url;
+    private final String user;
+    private final String password;
+
+    private SQLProperties sqlProperties;
+    private DBProperties dbProperties;
+
+    public UsuarioDAO() {
+        sqlProperties = new SQLProperties();
+        dbProperties = new DBProperties();
+        url = dbProperties.getDBString("db.url");
+        user = dbProperties.getDBString("db.username");
+        password = dbProperties.getDBString("db.password");
+    }  
 
 
     //Fuerza a cargar el driver de MariaDB
@@ -22,7 +36,7 @@ public class UsuarioDAO {
     }
 
     public boolean existeCorreo(String correo) {
-        String query = "SELECT correo FROM usuario WHERE correo=?";
+        String query = sqlProperties.getSQLQuery("existe_correo");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, correo);
@@ -35,7 +49,7 @@ public class UsuarioDAO {
     }
 
     public boolean existeNombre(String nombre) {
-        String query = "SELECT nombre FROM usuario WHERE nombre=?";
+        String query = sqlProperties.getSQLQuery("existe_nombre");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, nombre);
@@ -48,7 +62,7 @@ public class UsuarioDAO {
     }
 
     public boolean insertarUsuario(String correo, String nombre, String contrasena) {
-        String query = "INSERT INTO usuario (correo, nombre, contrasena) VALUES (?, ?, ?)";
+        String query = sqlProperties.getSQLQuery("insertar_usuario");
         try (Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -69,7 +83,7 @@ public class UsuarioDAO {
 
     //Verifica credenciales
     public boolean verificarCredenciales(String correo, String contrasena) {
-        String query = "SELECT contrasena FROM usuario WHERE correo=?";
+        String query = sqlProperties.getSQLQuery("verificar_credenciales");
         try (Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, correo);
@@ -88,7 +102,7 @@ public class UsuarioDAO {
 
     //Obtener nombre de usuario por correo
     public Usuario obtenerDatosUsuario(String correo) {
-        String query = "SELECT nombre, puntuacion, tema FROM usuario WHERE correo=?";
+        String query = sqlProperties.getSQLQuery("obtener_datos_usuario");
         Usuario usuario = new Usuario();
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -113,7 +127,7 @@ public class UsuarioDAO {
 
     public List<Usuario> obtenerRankingGlobal() {
         List<Usuario> ranking = new ArrayList<>();
-        String sql = "SELECT nombre, puntuacion FROM usuario ORDER BY puntuacion DESC";
+        String sql = sqlProperties.getSQLQuery("obtener_ranking_global");
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -133,7 +147,7 @@ public class UsuarioDAO {
     }
 
     public boolean actualizarPuntuacion(String correo, float puntuacion) {
-        String query = "UPDATE usuario SET puntuacion = ? WHERE correo = ?";
+        String query = sqlProperties.getSQLQuery("actualizar_puntuacion");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setFloat(1, puntuacion);
@@ -147,7 +161,7 @@ public class UsuarioDAO {
     }
 
     public boolean actualizarTema(String correo, String tema) {
-        String query = "UPDATE usuario SET tema = ? WHERE correo = ?";
+        String query = sqlProperties.getSQLQuery("actualizar_tema");
         try (Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, tema);

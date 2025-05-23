@@ -5,13 +5,27 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
+
+import data.common.DBProperties;
+import data.common.SQLProperties;
 import data.dto.Usuario;
 
 
 public class PartidaDAO {
-    private final String url = "jdbc:mariadb://localhost:3306/mathle";
-    private final String user = "root";
-    private final String password = "1234";
+    private final String url;
+    private final String user;
+    private final String password;
+
+    private SQLProperties sqlProperties;
+    private DBProperties dbProperties;
+
+    public PartidaDAO() {
+        sqlProperties = new SQLProperties();
+        dbProperties = new DBProperties();
+        url = dbProperties.getDBString("db.url");
+        user = dbProperties.getDBString("db.username");
+        password = dbProperties.getDBString("db.password");
+    }  
 
 
     //Fuerza a cargar el driver de MariaDB
@@ -25,7 +39,7 @@ public class PartidaDAO {
 
     public List<Usuario> obtenerRankingPorProblema(int idProblema) {
         List<Usuario> ranking = new ArrayList<>();
-        String sql = "SELECT nombreUsuario, puntuacion FROM partida WHERE idProblema = ? ORDER BY puntuacion DESC";
+        String sql = sqlProperties.getSQLQuery("obtener_ranking_problema");
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -48,7 +62,7 @@ public class PartidaDAO {
     }
 
     public Boolean insertarPartida(String nombreUsuario, int idProblema, float puntuacion, int duracion, int intentos) {
-        String query = "INSERT INTO partida (nombreUsuario, idProblema, puntuacion, duracion, intentos) VALUES (?, ?, ?, ?, ?)";
+        String query = sqlProperties.getSQLQuery("insertar_partida");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -66,7 +80,7 @@ public class PartidaDAO {
     }
 
     public boolean comprobarPartida(String nombreUsuario, int idProblema) {
-        String query = "SELECT * FROM partida WHERE nombreUsuario = ? AND idProblema = ?";
+        String query = sqlProperties.getSQLQuery("comprobar_partida");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 

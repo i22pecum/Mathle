@@ -2,11 +2,25 @@ package data.dao;
 
 import java.sql.*;
 
+import data.common.DBProperties;
+import data.common.SQLProperties;
+
 public class ProblemaDAO {
     
-    private final String url = "jdbc:mariadb://localhost:3306/mathle";
-    private final String user = "root";
-    private final String password = "1234";
+    private final String url;
+    private final String user;
+    private final String password;
+
+    private SQLProperties sqlProperties;
+    private DBProperties dbProperties;
+
+    public ProblemaDAO() {
+        sqlProperties = new SQLProperties();
+        dbProperties = new DBProperties();
+        url = dbProperties.getDBString("db.url");
+        user = dbProperties.getDBString("db.username");
+        password = dbProperties.getDBString("db.password");
+    }   
 
 
     //Fuerza a cargar el driver de MariaDB
@@ -19,7 +33,7 @@ public class ProblemaDAO {
     }
 
     public String obtenerOperacion(int dificultad, String modoJuego, Date fecha) {
-        String query = "SELECT operacion FROM problema WHERE dificultad=? AND modoJuego=? AND fecha=?";
+        String query = sqlProperties.getSQLQuery("obtener_operacion");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, dificultad);
@@ -37,7 +51,7 @@ public class ProblemaDAO {
     }
 
     public void insertarProblema(int dificultad, String modoJuego, Date fecha, String operacion) {
-        String query = "INSERT INTO problema (dificultad, modoJuego, fecha, operacion) VALUES (?, ?, ?, ?)";
+        String query = sqlProperties.getSQLQuery("insertar_problema");
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, dificultad);
@@ -51,7 +65,7 @@ public class ProblemaDAO {
     }
 
     public Integer obtenerIdProblemaPorCriterios(String modoJuego, int dificultad, Date fecha) {
-        String sql = "SELECT id FROM problema WHERE modoJuego = ? AND dificultad = ? AND fecha = ?";
+        String sql = sqlProperties.getSQLQuery("obtener_id_problema");
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
              PreparedStatement stmt = conn.prepareStatement(sql)) {

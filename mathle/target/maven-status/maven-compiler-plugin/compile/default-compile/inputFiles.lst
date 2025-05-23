@@ -1,12 +1,14 @@
 /home/usuario/IW/mathle/src/main/java/servlets/RegistrarServlet.java
 /home/usuario/IW/mathle/src/main/java/servlets/LogoutServlet.java
 /home/usuario/IW/mathle/src/main/java/servlets/PartidaServlet.java
+/home/usuario/IW/mathle/src/main/java/data/common/SQLProperties.java
 /home/usuario/IW/mathle/src/main/java/data/common/OperacionGenerator.java
 /home/usuario/IW/mathle/src/main/java/data/dto/Usuario.java
 /home/usuario/IW/mathle/src/main/java/servlets/RankingPartidaServlet.java
 /home/usuario/IW/mathle/src/main/java/data/dao/PartidaDAO.java
 /home/usuario/IW/mathle/src/main/java/data/dto/Partida.java
 /home/usuario/IW/mathle/src/main/java/servlets/SeleccionarDificultadServlet.java
+/home/usuario/IW/mathle/src/main/java/data/common/DBProperties.java
 /home/usuario/IW/mathle/src/main/java/data/dao/MensajeDAO.java
 /home/usuario/IW/mathle/src/main/java/data/dao/UsuarioDAO.java
 /home/usuario/IW/mathle/src/main/java/servlets/MensajeServlet.java
