@@ -31,7 +31,7 @@ CREATE TABLE `mensaje` (
   PRIMARY KEY (`id`),
   KEY `autor` (`autor`),
   CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `usuario` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,10 +43,9 @@ LOCK TABLES `mensaje` WRITE;
 INSERT INTO `mensaje` VALUES
 (1,'jose','2025-05-21 12:28:17','Buen juego\r\n'),
 (2,'SrGuille','2025-05-21 12:31:04','Llevo desde los 0,5 años jugando a este juego, y la verdad que es la mejor version que he visto del mismo, un saludo!'),
-(3,'matas','2025-05-21 12:38:42','expreso mackiato, mackiato mackiato porfavoree, porfavoreee'),
-(4,'SrGuille','2025-05-21 13:10:49','1234234'),
 (5,'Manuel','2025-05-22 17:13:12','Que juego más divertido!!'),
-(6,'Manuel','2025-05-23 11:03:36','Me encanta este juego');
+(6,'Manuel','2025-05-23 11:03:36','Me encanta este juego'),
+(7,'matas','2025-05-24 12:21:51','¡SOY UN MAQUINAA!!!!!');
 /*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +85,11 @@ INSERT INTO `partida` VALUES
 (15,'SrGuille',29,1,10.8),
 (18,'Manuel',15,1,12),
 (19,'Manuel',28,1,14.4),
-(22,'Manuel',5,7,0);
+(22,'Manuel',5,7,0),
+(23,'ANTONIO',110,2,5),
+(25,'ANTONIO',11,1,12),
+(26,'matas',14,1,16),
+(27,'matas',15,1,14);
 /*!40000 ALTER TABLE `partida` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +107,7 @@ CREATE TABLE `problema` (
   `dificultad` int(11) NOT NULL,
   `modoJuego` enum('normal','ninos') DEFAULT NULL CHECK (`dificultad` in (6,8,10,12)),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +138,12 @@ INSERT INTO `problema` VALUES
 (19,'31-2+23+6=58','2025-05-22',12,'normal'),
 (20,'13-7=6','2025-05-20',6,'ninos'),
 (21,'0*49=0','2025-05-23',6,'ninos'),
-(22,'3*4=12','2025-05-23',6,'normal');
+(22,'3*4=12','2025-05-23',6,'normal'),
+(23,'7*3=21','2025-05-24',6,'normal'),
+(24,'88+41-25=104','2025-05-24',12,'ninos'),
+(25,'49-10=39','2025-05-24',8,'normal'),
+(26,'11*34-81=293','2025-05-24',12,'normal'),
+(27,'41*60=2460','2025-05-24',10,'normal');
 /*!40000 ALTER TABLE `problema` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,16 +172,13 @@ CREATE TABLE `usuario` (
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES
-('32453@godnfv','1234','$2a$10$7DRK.kb3Y7qUedUlIQNc2..sNHBJo1ZOI2HbXkPe7b0p/Zp/1SfGO',0,'claro'),
-('ANTONIO@gmail.com','ANTONIO','$2a$10$z2MfRgb2ZcMeDaZSAZTfCenNRrpWfaR3DKDu0CMVectfjgWHdG9nO',9.6,'verde'),
+('ANTONIO@gmail.com','ANTONIO','$2a$10$z2MfRgb2ZcMeDaZSAZTfCenNRrpWfaR3DKDu0CMVectfjgWHdG9nO',26,'azul'),
 ('guillermito@gmail.com','SrGuille','$2a$10$djQZHGqS8nYxhqg6eM4BROkPpz.SmXrqpVpir2Q78ZxjkeDQUiCbG',20.8,'claro'),
-('holahola@gmail.com','hola','$2a$10$FrdQaZRrbH0lrZHeDBDam.nVvTL6OtsT9yLm4YJSfm8IzIrViT8y2',0,'claro'),
 ('i22arpep@uco.es','pabloaz','$2a$10$pCX7zNpNItCi19bUZ72NVe/9Drqiun8mAuYXHdhydAAJ5AbT8Q176',0,'claro'),
 ('i22pecum@uco.es','Manuel','$2a$10$bhD0caxKBUfiThNgqDeAMuYp5Pqkj2MZfhgcpBSgzxUxRpoouOi.W',50,'oscuro'),
 ('jose@gmail.com','jose','$2a$10$FXlLqKiDr4nSXt6SJgxDueyhBKimpb7wMTDW/CFBBeZMV4LbBkBuG',5,'verde'),
-('matas@gmail.com','matas','$2a$10$TrnY3iGrKZD1HMOcQsysPus0C9S9erKHQ6.Vu1VxY07cocUk4FMsi',0,'oscuro'),
-('pepe@gmail.com','pepe','$2a$10$phzoqTMrA4lHoWDMtqe7HuYybp/9n6MaR0NrCyKQ31Ak8MY4BHKLa',0,'azul'),
-('prueba@gmail.com','prueba','$2a$10$oRp.4nDPYNumDK.wLEPEwu/3ZSbIAOtrXCpPh42jV1/zlsz99VdZu',0,'claro');
+('matas@gmail.com','matas','$2a$10$TrnY3iGrKZD1HMOcQsysPus0C9S9erKHQ6.Vu1VxY07cocUk4FMsi',30,'oscuro'),
+('pepe@gmail.com','pepe','$2a$10$phzoqTMrA4lHoWDMtqe7HuYybp/9n6MaR0NrCyKQ31Ak8MY4BHKLa',0,'azul');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -186,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-23 11:08:51
+-- Dump completed on 2025-05-24 12:38:37
