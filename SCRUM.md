@@ -126,4 +126,4 @@ En este cuarto sprint tenemos el siguiente Product Backlog:
 
 ### 5.2. Burndown Chart
 
-![Burndown Chart del sprint 3](Burndown_chart_Sprint4.svg)
+![Burndown Chart del sprint 4](Burndown_chart_Sprint4.svg)
