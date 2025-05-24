@@ -29,7 +29,7 @@ En este apartado se mostraran todas las tareas que hay que desempeñar para llev
 | **Vista personalizar web** | Crear una pantalla para poder cambiar el tema de la aplicación | 1 | Baja |
 | **Funcionalidad registro/inicio sesion** | Implementar el backend que permite al usuario crear cuentas y autenticarse en el sistema | 3 | Baja |
 | **Funcionalidad partida** | Programar la lógica que permite ejecutar una partida, manejar las reglas, condiciones y resultados del juego | 4 | Muy Alta |
-| **Funcionalidad ver ranking** | 	Implementar la funcionalidad que recupera y muestra los puntajes o clasificaciones de los usuarios | 2 | Alta |
+| **Funcionalidad ver ranking** | Implementar la funcionalidad que recupera y muestra los puntajes o clasificaciones de los usuarios | 2 | Alta |
 | **Funcionalidad publicar mensaje** | Programar la opción para que los usuarios puedan escribir y publicar mensajes en el blog del sistema | 2 | Baja |
 | **Funcionalidad personalizar web** | Desarrollar las opciones que permiten a los usuarios modificar la apariencia visual de la interfaz según preferencias | 3 | Baja |
 | **Funcionalidad crear operacion** | Programar la generación dinámica de operaciones o retos que se presentarán al usuario durante la partida | 3 | Alta |
@@ -119,7 +119,7 @@ En este cuarto sprint tenemos el siguiente Product Backlog:
 | **Vista personalizar web** | Crear una pantalla para poder cambiar el tema de la aplicación | 1 | Baja |
 | **Funcionalidad registro/inicio sesion** | Implementar el backend que permite al usuario crear cuentas y autenticarse en el sistema | 3 | Baja |
 | **Funcionalidad partida** | Programar la lógica que permite ejecutar una partida, manejar las reglas, condiciones y resultados del juego | 4 | Muy Alta |
-| **Funcionalidad ver ranking** | 	Implementar la funcionalidad que recupera y muestra los puntajes o clasificaciones de los usuarios | 2 | Alta |
+| **Funcionalidad ver ranking** | Implementar la funcionalidad que recupera y muestra los puntajes o clasificaciones de los usuarios | 2 | Alta |
 | **Funcionalidad publicar mensaje** | Programar la opción para que los usuarios puedan escribir y publicar mensajes en el blog del sistema | 2 | Baja |
 | **Funcionalidad personalizar web** | Desarrollar las opciones que permiten a los usuarios modificar la apariencia visual de la interfaz según preferencias | 3 | Baja |
 | **Funcionalidad crear operacion** | Programar la generación dinámica de operaciones o retos que se presentarán al usuario durante la partida | 3 | Alta |
