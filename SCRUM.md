@@ -26,6 +26,7 @@ En este apartado se mostraran todas las tareas que hay que desempeñar para llev
 | **Vista rankings** | 	Diseñar una vista que muestre los puntajes de los usuarios, permitiendo ver clasificaciones globales o de una partida | 3 | Media |
 | **Vista tutorial** | Crear una pantalla que explique cómo usar el sistema o jugar, incluyendo instrucciones paso a paso | 1 | Media |
 | **Estilos para personalizar la web** | Aplicar y ajustar estilos CSS que permitan modificar temas del sistema web | 3 | Baja |
+| **Vista personalizar web** | Crear una pantalla para poder cambiar el tema de la aplicación | 1 | Baja |
 | **Funcionalidad registro/inicio sesion** | Implementar el backend que permite al usuario crear cuentas y autenticarse en el sistema | 3 | Baja |
 | **Funcionalidad partida** | Programar la lógica que permite ejecutar una partida, manejar las reglas, condiciones y resultados del juego | 4 | Muy Alta |
 | **Funcionalidad ver ranking** | 	Implementar la funcionalidad que recupera y muestra los puntajes o clasificaciones de los usuarios | 2 | Alta |
@@ -115,6 +116,7 @@ En este cuarto sprint tenemos el siguiente Product Backlog:
 | **Vista rankings** | 	Diseñar una vista que muestre los puntajes de los usuarios, permitiendo ver clasificaciones globales o de una partida | 3 | Media |
 | **Vista tutorial** | Crear una pantalla que explique cómo usar el sistema o jugar, incluyendo instrucciones paso a paso | 1 | Media |
 | **Estilos para personalizar la web** | Aplicar y ajustar estilos CSS que permitan modificar temas del sistema web | 3 | Baja |
+| **Vista personalizar web** | Crear una pantalla para poder cambiar el tema de la aplicación | 1 | Baja |
 | **Funcionalidad registro/inicio sesion** | Implementar el backend que permite al usuario crear cuentas y autenticarse en el sistema | 3 | Baja |
 | **Funcionalidad partida** | Programar la lógica que permite ejecutar una partida, manejar las reglas, condiciones y resultados del juego | 4 | Muy Alta |
 | **Funcionalidad ver ranking** | 	Implementar la funcionalidad que recupera y muestra los puntajes o clasificaciones de los usuarios | 2 | Alta |
@@ -124,4 +126,4 @@ En este cuarto sprint tenemos el siguiente Product Backlog:
 
 ### 5.2. Burndown Chart
 
-![Burndown Chart del sprint 3](Burndown_chart_Sprint3.svg)
+![Burndown Chart del sprint 3](Burndown_chart_Sprint4.svg)
