@@ -9,11 +9,6 @@
             String tema = "";
             Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-            if(usuario != null){
-                response.sendRedirect("/mathle");
-                return;
-            }
-
             if(usuario == null){
                 tema = (String) session.getAttribute("color");
             if (tema == null) {

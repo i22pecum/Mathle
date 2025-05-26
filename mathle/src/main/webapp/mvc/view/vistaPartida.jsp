@@ -40,6 +40,7 @@
         const dificultad = <%= dificultad %>;
         const modoJuego = "<%= modoJuego %>";
         const operacionVisible = "<%= operacionVisible %>";
+        const partidaId = operacionCorrecta + "_" + modoJuego;
     </script>
     <script src="<%= request.getContextPath() %>/js/jugarPartida.js" defer></script>
 </head>

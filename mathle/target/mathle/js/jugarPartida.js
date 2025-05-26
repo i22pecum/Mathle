@@ -147,7 +147,7 @@ function calcularTiempo() {
 }
 
 function enviarResultado(numIntentos, tiempo) {
-    sessionStorage.removeItem("intentosPartida");
+    limpiarIntentos();
     document.getElementById("inputIntentos").value = numIntentos;
     document.getElementById("inputTiempo").value = tiempo;
     document.getElementById("formResultado").submit();
@@ -167,7 +167,11 @@ function mostrarMensaje(texto, tipo = "error") {
 
 // Guarda los intentos en sessionStorage
 function guardarIntentos() {
-    sessionStorage.setItem("intentosPartida", JSON.stringify(intentosArray));
+    sessionStorage.setItem("intentosPartida_" + partidaId, JSON.stringify(intentosArray));
+}
+
+function limpiarIntentos() {
+    sessionStorage.removeItem("intentosPartida_" + partidaId);
 }
 
 // Rellena una fila con un intento anterior
@@ -187,8 +191,8 @@ function restaurarIntento(fila, intentoObj) {
 window.onload = function () {
     activarFila(filaActual);
 
-    // Restaurar intentos desde sessionStorage
-    const guardados = sessionStorage.getItem("intentosPartida");
+    // Restaurar intentos desde sessionStorage SOLO de esta partida
+    const guardados = sessionStorage.getItem("intentosPartida_" + partidaId);
     if (guardados) {
         intentosArray = JSON.parse(guardados);
         intentos = intentosArray.length;
